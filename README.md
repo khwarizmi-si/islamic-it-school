@@ -1,42 +1,50 @@
-# sv
+# Islamic IT School
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Website [islamic-it-school.com](https://islamic-it-school.com): SvelteKit 2 + Svelte 5 + Tailwind CSS 4, di-deploy ke Cloudflare Workers.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Development
 
 ```sh
-# create a new project
-npx sv create my-app
+npm install        # butuh npm >= 11 (npm 10 gagal resolve peer deps): npx npm@11 install
+npm run dev        # http://localhost:5173
+npm run check      # type-check
+npm test           # unit test (vitest)
 ```
 
-To recreate this project with the same configuration:
+## Deploy ke Cloudflare
 
 ```sh
-# recreate this project
-npx sv@0.17.1 create --template minimal --types ts --add tailwindcss="plugins:none" sveltekit-adapter="adapter:cloudflare+cfTarget:workers" vitest="usages:unit" --no-download-check --install npm app
+npx wrangler login     # sekali saja
+npm run deploy         # vite build && wrangler deploy
+npm run preview        # uji hasil build di runtime Workers lokal (port 4173)
 ```
 
-## Developing
+Pertama kali deploy, Worker `islamic-it-school` muncul di `*.workers.dev`. Untuk memakai domain sendiri:
+Cloudflare Dashboard → Workers & Pages → islamic-it-school → Settings → Domains & Routes → Add Custom Domain.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Konfigurasi
 
-```sh
-npm run dev
+| Apa | Di mana |
+|---|---|
+| Nomor WhatsApp, URL API, link sosial | `src/lib/site.ts` |
+| Client key Midtrans (publik, **wajib diisi** sebelum pembayaran jalan) | `src/lib/midtrans.ts` |
+| Host video/audio (`MEDIA_BASE`, mis. bucket R2 publik) | `src/lib/site.ts` |
+| Konten 7 landing buku (`/itmi`, `/lc`, ...) | `src/lib/books.ts` |
+| Redirect URL lama `*.html` | `_redirects` |
+| Header keamanan | `_headers` |
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Video promo (97 MB) dan video kursus tidak bisa ikut sebagai asset Worker (batas 25 MiB/file). Upload ke R2/CDN lalu isi
+`MEDIA_BASE`; sebelum itu halaman menampilkan gambar pengganti. Audio QCB dicari di `MEDIA_BASE/qcb/audios/...`, atau
+kembalikan file mp3-nya ke `static/qcb/audios/` kalau `MEDIA_BASE` dibiarkan kosong.
 
-## Building
+## Struktur
 
-To create a production version of your app:
+- `src/routes/(site)/`: halaman publik yang memakai navbar bersama
+- `src/routes/[book=book]/`: satu template untuk 7 landing buku
+- `src/routes/form_beli`, `form_webinar`, `payment-success`: checkout (Midtrans Snap)
+- `src/routes/admin/`: panel admin (login, super-admin, admin)
+- `src/routes/qcb/audio-qcb`: halaman audio dari QR code buku (jangan ganti URL-nya)
+- `legacy/sekolahimpian/`: situs Sekolah Impian terpisah, bukan bagian app ini
 
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Semua halaman di-prerender menjadi HTML statis. Form, admin, dan halaman QCB dirender di browser karena bergantung
+pada query string atau token login.
