@@ -2,9 +2,10 @@
 	import BookShowcase from '$lib/components/BookShowcase.svelte';
 	import Faq, { type FaqItem } from '$lib/components/Faq.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import { mediaUrl, SOCIAL, waLink } from '$lib/site';
+	import { MEDIA_BASE, mediaUrl, SOCIAL, waLink } from '$lib/site';
 
-	const promoVideo = mediaUrl('vid/Video Iklan Buku All Revisi.mp4');
+	// The 97 MB promo video can't ship as a Worker asset; it shows once MEDIA_BASE points at its host.
+	const promoVideo = MEDIA_BASE ? mediaUrl('vid/Video Iklan Buku All Revisi.mp4') : null;
 	let portrait = $state(false);
 
 	const audiences = [

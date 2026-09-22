@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Faq, { type FaqItem } from '$lib/components/Faq.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import { mediaUrl, waLink } from '$lib/site';
+	import { MEDIA_BASE, mediaUrl, waLink } from '$lib/site';
 
-	const introVideo = mediaUrl('vid/itc.mp4');
+	const introVideo = MEDIA_BASE ? mediaUrl('vid/itc.mp4') : null;
 	let playing = $state(false);
 
 	type Program = { emoji: string; title: string; text: string; sessions: number; tag: string; color: string; special?: boolean };

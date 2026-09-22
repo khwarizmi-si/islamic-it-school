@@ -1,0 +1,26 @@
+# Old static-site URLs → SvelteKit routes (Cloudflare Workers static-assets redirects; query strings are kept).
+/index.html               /                   301
+/buku.html                /buku               301
+/channel.html             /channel            301
+/dokumentasi.html         /dokumentasi        301
+/kursus.html              /kursus             301
+/pelatihan.html           /pelatihan          301
+/webinar.html             /webinar            301
+/server.html              /server             301
+/form_beli.html           /form_beli          301
+/form_webinar.html        /form_webinar       301
+/payment-success.html     /payment-success    301
+/detailbuku.html          /detailbuku         301
+/gallery.html             /                   301
+/qcb/audio-qcb.html       /qcb/audio-qcb      301
+/admin/index.html         /admin              301
+/admin/admin.html         /admin/admin        301
+/admin/super-admin.html   /admin/super-admin  301
+/admin/a.html             /admin              301
+/itmi/index.html          /itmi               301
+/lc/index.html            /lc                 301
+/st/index.html            /st                 301
+/mbt/index.html           /mbt                301
+/it-pf/index.html         /it-pf              301
+/it-bp/index.html         /it-bp              301
+/it-bm/index.html         /it-bm              301

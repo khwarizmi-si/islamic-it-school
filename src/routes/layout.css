@@ -103,7 +103,8 @@
 	[role='button']:not(:disabled) {
 		cursor: pointer;
 	}
-	html {
+	/* Smooth only once the user interacts: a global `smooth` breaks the jump to #hash on first load. */
+	html:focus-within {
 		scroll-behavior: smooth;
 	}
 }

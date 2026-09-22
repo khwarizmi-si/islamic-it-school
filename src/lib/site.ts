@@ -9,10 +9,10 @@ export const waLink = (text?: string) =>
 export const API_BASE = 'https://iis.portalsi.com/api';
 export const WEBINAR_API = 'https://iis.dreamapps.id/api';
 
-// ponytail: large videos/audio were removed from the repo (Workers assets cap files at 25 MiB).
-// Point this at wherever they're hosted (R2 public bucket, CDN...) and they reappear.
+// Videos/audio were removed from the repo (Workers assets cap files at 25 MiB). Set this to where they're
+// hosted (R2 public bucket, CDN...). Empty = same origin, which is fine for the small QCB mp3s in static/.
 export const MEDIA_BASE = '';
-export const mediaUrl = (path: string) => (MEDIA_BASE ? `${MEDIA_BASE}/${encodeURI(path)}` : null);
+export const mediaUrl = (path: string) => `${MEDIA_BASE}/${encodeURI(path)}`;
 
 export const SOCIAL = {
 	instagram: 'https://www.instagram.com/sekolahimpianofficial',

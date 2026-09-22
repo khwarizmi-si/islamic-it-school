@@ -146,7 +146,7 @@
 		<div class="absolute top-1/2 left-1/4 size-12 animate-float-soft rounded-full bg-white/25 [animation-delay:2s]"></div>
 	</section>
 
-	<section id="about" class="bg-white py-20">
+	<section id="about" class="scroll-mt-16 bg-white py-20">
 		<div class="container mx-auto px-6">
 			<div class="mb-16 text-center" {@attach reveal}>
 				<h2 class="book-heading mb-6">{book.problems.title}</h2>
@@ -169,7 +169,7 @@
 		</div>
 	</section>
 
-	<section id="details" class="bg-gray-100 py-20">
+	<section id="details" class="scroll-mt-16 bg-gray-100 py-20">
 		<div class="container mx-auto px-6">
 			<div class="mb-16 text-center" {@attach reveal}>
 				<h2 class="book-heading mb-6">{book.solution.title}</h2>
@@ -207,7 +207,7 @@
 		</div>
 	</section>
 
-	<section id="specs" class="bg-white py-20">
+	<section id="specs" class="scroll-mt-16 bg-white py-20">
 		<div class="container mx-auto px-6">
 			<h2 class="book-heading mb-4 text-center" {@attach reveal}>DETAIL BUKU</h2>
 			<div class="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-2">
@@ -273,7 +273,7 @@
 		</div>
 	</section>
 
-	<section id="beli" class="book-gradient relative overflow-hidden py-12 md:py-20">
+	<section id="beli" class="scroll-mt-16 book-gradient relative overflow-hidden py-12 md:py-20">
 		<div class="absolute inset-0 bg-black/30"></div>
 		<div class="relative z-10 container mx-auto px-4 sm:px-6">
 			<div class="mx-auto max-w-3xl text-center" {@attach reveal}>
