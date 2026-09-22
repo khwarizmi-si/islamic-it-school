@@ -5,7 +5,9 @@ export const WA_NUMBER = '6285161231559';
 export const waLink = (text?: string) =>
 	`https://wa.me/${WA_NUMBER}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
 
+// Two backends: book orders/admin live on portalsi, webinar registration on dreamapps.
 export const API_BASE = 'https://iis.portalsi.com/api';
+export const WEBINAR_API = 'https://iis.dreamapps.id/api';
 
 // ponytail: large videos/audio were removed from the repo (Workers assets cap files at 25 MiB).
 // Point this at wherever they're hosted (R2 public bucket, CDN...) and they reappear.
