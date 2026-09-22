@@ -44,7 +44,6 @@ kembalikan file mp3-nya ke `static/qcb/audios/` kalau `MEDIA_BASE` dibiarkan kos
 - `src/routes/form_beli`, `form_webinar`, `payment-success`: checkout (Midtrans Snap)
 - `src/routes/admin/`: panel admin (login, super-admin, admin)
 - `src/routes/qcb/audio-qcb`: halaman audio dari QR code buku (jangan ganti URL-nya)
-- `legacy/sekolahimpian/`: situs Sekolah Impian terpisah, bukan bagian app ini
 
 Semua halaman di-prerender menjadi HTML statis. Form, admin, dan halaman QCB dirender di browser karena bergantung
 pada query string atau token login.
