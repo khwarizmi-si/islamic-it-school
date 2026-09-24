@@ -57,7 +57,7 @@
 				{#each books as book, i (book.slug)}
 					<li {@attach reveal} style:transition-delay="{Math.min(i, 5) * 60}ms">
 						<a href="/{book.slug}" class="group block">
-							<div class="overflow-hidden rounded-sm bg-surface shadow-[0_1rem_2.5rem_oklch(0.05_0.02_300/0.5)]">
+							<div class="overflow-hidden rounded-sm bg-surface shadow-[0_0.6rem_1.8rem_oklch(0.3_0.05_300/0.16)]">
 								<img
 									src="{book.img}/cover.jpg"
 									alt="Sampul {book.name}"

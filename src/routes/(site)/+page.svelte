@@ -145,8 +145,8 @@
 		</div>
 	</section>
 
-	<!-- Audiences -->
-	<section id="mulai" class="rule scroll-mt-24">
+	<!-- Audiences: the page steps out of the dark here, so the six routes read as a fresh chapter. -->
+	<section id="mulai" class="theme-paper scroll-mt-24 bg-bg text-fg">
 		<div class="shell band">
 			<div class="max-w-2xl" {@attach reveal}>
 				<h2 class="text-title font-semibold">Mulai dari mana?</h2>
@@ -183,8 +183,8 @@
 		</div>
 	</section>
 
-	<!-- Story + media -->
-	<section class="rule">
+	<!-- Story: the logo's teal, carrying its own surface rather than sitting as an accent. -->
+	<section class="theme-teal bg-bg text-fg">
 		<div class="shell band grid items-center gap-12 lg:grid-cols-2">
 			<figure class="overflow-hidden rounded-lg bg-surface" {@attach reveal}>
 				{#if promoVideo}
@@ -230,8 +230,8 @@
 		</div>
 	</section>
 
-	<!-- FAQ -->
-	<section class="rule">
+	<!-- FAQ: back to the dark surface so the page closes into the footer. -->
+	<section class="theme-night bg-bg text-fg">
 		<div class="shell band grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
 			<div {@attach reveal}>
 				<h2 class="text-title font-semibold">Pertanyaan yang sering ditanyakan</h2>

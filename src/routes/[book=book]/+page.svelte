@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Gallery from '$lib/components/Gallery.svelte';
 	import Seo from '$lib/components/Seo.svelte';
+	import { bookPalette } from '$lib/bookTheme';
 	import { referral } from '$lib/referral.svelte';
 	import { reveal } from '$lib/reveal';
 	import { BRAND_MARK, rupiah, SITE_NAME } from '$lib/site';
@@ -37,6 +38,13 @@
 
 	const discount = $derived(Math.round((1 - book.price / book.normalPrice) * 100));
 
+	// Each landing wears the colours sampled from its own cover, so the seven pages don't share one
+	// hue. SSR sets this on <html> in hooks.server.ts; this keeps it right after client navigation.
+	$effect(() => {
+		document.documentElement.setAttribute('style', bookPalette(book));
+		return () => document.documentElement.removeAttribute('style');
+	});
+
 	/** Scroll-spy: highlight the topmost section crossing the upper part of the viewport. */
 	function spy(node: HTMLElement) {
 		const visible = new Set<string>();
@@ -53,6 +61,8 @@
 </script>
 
 <Seo title="{book.name} — {SITE_NAME}" description={book.specs.description} image={book.hero.mockup} icon={BRAND_MARK} />
+
+
 
 <div class="min-h-screen bg-bg text-fg">
 	<header class="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-md">

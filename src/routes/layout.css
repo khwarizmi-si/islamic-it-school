@@ -77,6 +77,21 @@
 	color-scheme: dark;
 }
 
+/* Teal: the logo's second colour, used as a full surface so the site isn't one hue
+   from top to bottom. Paired with the warm signal, exactly like the mark. */
+.theme-teal {
+	--color-bg: oklch(0.32 0.062 192);
+	--color-surface: oklch(0.38 0.062 192);
+	--color-surface-2: oklch(0.44 0.06 192);
+	--color-fg: oklch(0.98 0.01 192);
+	--color-muted: oklch(0.87 0.03 192);
+	--color-line: oklch(0.98 0.01 192 / 0.22);
+	--color-signal: oklch(0.83 0.16 72);
+	--color-on-signal: oklch(0.26 0.05 72);
+	--color-support: oklch(0.9 0.08 192);
+	color-scheme: dark;
+}
+
 /* Paper: a true off-white tinted toward the brand violet, never cream.
    0.53 on the signal keeps small orange text and white-on-orange buttons above 4.5:1. */
 .theme-paper {

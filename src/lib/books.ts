@@ -1,9 +1,16 @@
 // Content for the per-book landing pages (/itmi, /lc, ...). HTML fields are trusted, author-written markup.
+// `ink`/`inkC` describe each cover's own field (hue + chroma, so the black MBT cover stays
+// near-neutral while the blue and violet ones keep their colour); `accent` is the action colour —
+// brand orange, or brand teal where the field itself is warm. Sampled from the covers, then
+// checked against them by eye.
 export type Book = (typeof books)[number];
 
 export const books = [
 	{
 		slug: "itmi",
+		ink: 293,
+		inkC: 0.045,
+		accent: 45,
 		title: "Islamic Technology Mindset Installation (ITMI)",
 		short: "ITMI",
 		name: "Islamic Technology Mindset Installation (ITMI)",
@@ -95,6 +102,9 @@ export const books = [
 	},
 	{
 		slug: "lc",
+		ink: 263,
+		inkC: 0.05,
+		accent: 45,
 		title: "Liquid Curriculum",
 		short: "Liquid Curriculum",
 		name: "Liquid Curriculum",
@@ -184,6 +194,9 @@ export const books = [
 	},
 	{
 		slug: "st",
+		ink: 218,
+		inkC: 0.045,
+		accent: 45,
 		title: "Sejarah Teknologi - Seri Teknologi Islami",
 		short: "Sejarah Teknologi",
 		name: "Sejarah Teknologi",
@@ -275,6 +288,9 @@ export const books = [
 	},
 	{
 		slug: "mbt",
+		ink: 263,
+		inkC: 0.015,
+		accent: 45,
 		title: "Mental Belajar Teknologi - Seri Teknologi Islami",
 		short: "Mental Belajar Teknologi",
 		name: "Mental Belajar Teknologi",
@@ -364,6 +380,9 @@ export const books = [
 	},
 	{
 		slug: "it-pf",
+		ink: 23,
+		inkC: 0.05,
+		accent: 190,
 		title: "IT Dengan Proyek Festival",
 		short: "IT Dengan Proyek Festival",
 		name: "IT Dengan Proyek Festival",
@@ -453,6 +472,9 @@ export const books = [
 	},
 	{
 		slug: "it-bp",
+		ink: 263,
+		inkC: 0.06,
+		accent: 45,
 		title: "IT Berorientasi Produktif",
 		short: "IT Berorientasi Produktif",
 		name: "IT Berorientasi Produktif",
@@ -542,6 +564,9 @@ export const books = [
 	},
 	{
 		slug: "it-bm",
+		ink: 308,
+		inkC: 0.05,
+		accent: 45,
 		title: "IT Berorientasi Monetitatif",
 		short: "IT Berorientasi Monetitatif",
 		name: "IT Berorientasi Monetitatif",
