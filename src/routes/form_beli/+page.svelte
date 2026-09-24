@@ -39,13 +39,13 @@
 			REFERRAL_TIMEOUT_MS
 		);
 		return r.valid
-			? { valid: true, message: `✅ ${r.message ?? 'Kode referral valid'}${r.owner ? ` - Owner: ${r.owner}` : ''}` }
-			: { valid: false, message: `❌ ${r.message ?? 'Kode referral tidak valid.'}` };
+			? { valid: true, message: `${r.message ?? 'Kode referral valid'}${r.owner ? ` - Owner: ${r.owner}` : ''}` }
+			: { valid: false, message: `${r.message ?? 'Kode referral tidak valid.'}` };
 	};
 
 	onMount(() => {
 		if (!price) return;
-		loadSnap().catch((e: Error) => (notice = { kind: 'error', text: `❌ ${e.message}` }));
+		loadSnap().catch((e: Error) => (notice = { kind: 'error', text: `${e.message}` }));
 		if (refCode) referral?.run();
 	});
 
@@ -61,7 +61,7 @@
 		const f = new FormData(form);
 		const field = (k: string) => String(f.get(k) ?? '').trim();
 		if (!field('buyer_name') || !field('address')) {
-			notice = { kind: 'error', text: '❌ Harap isi semua field yang wajib dengan benar!' };
+			notice = { kind: 'error', text: 'Harap isi semua field yang wajib dengan benar!' };
 			return;
 		}
 		submitting = true;
@@ -92,17 +92,17 @@
 
 			const outcome = await payWithSnap(result.snap_token);
 			notice = {
-				success: { kind: 'success', text: '✅ Pembayaran berhasil! Terima kasih atas pembelian Anda.' },
-				pending: { kind: 'warning', text: '⏳ Pembayaran pending. Silakan selesaikan pembayaran Anda.' },
-				error: { kind: 'error', text: '❌ Terjadi kesalahan dalam proses pembayaran.' },
-				close: { kind: 'warning', text: 'ℹ️ Jendela pembayaran ditutup. Anda dapat melanjutkan pembayaran kapan saja.' }
+				success: { kind: 'success', text: 'Pembayaran berhasil! Terima kasih atas pembelian Anda.' },
+				pending: { kind: 'warning', text: 'Pembayaran pending. Silakan selesaikan pembayaran Anda.' },
+				error: { kind: 'error', text: 'Terjadi kesalahan dalam proses pembayaran.' },
+				close: { kind: 'warning', text: 'Jendela pembayaran ditutup. Anda dapat melanjutkan pembayaran kapan saja.' }
 			}[outcome] as { kind: NoticeKind; text: string };
 			if (outcome === 'success') {
 				const q = result.order_id ? `?order_id=${encodeURIComponent(result.order_id)}` : '';
 				setTimeout(() => goto(`/payment-success${q}`), REDIRECT_MS);
 			}
 		} catch (err) {
-			notice = { kind: 'error', text: `❌ ${(err as Error).message}` };
+			notice = { kind: 'error', text: `${(err as Error).message}` };
 		} finally {
 			submitting = false;
 		}
@@ -110,137 +110,143 @@
 </script>
 
 <svelte:head>
-	<title>Form Pembelian Buku | Islamic IT School</title>
+	<title>Form Pembelian Buku | Khwarizmi</title>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<main class="flex min-h-screen items-center justify-center bg-gray-100 p-6">
-	{#if !bookTitle || !price}
-		<div class="max-w-md rounded-lg bg-white p-8 text-center shadow-lg">
-			<h1 class="mb-4 text-xl font-bold text-red-600">Error</h1>
-			<p class="text-gray-600">Parameter buku tidak valid. Silakan kembali ke halaman sebelumnya.</p>
-			<button class="mt-4 rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700" onclick={() => history.back()}>
-				Kembali
-			</button>
-		</div>
-	{:else}
-		<div class="w-full max-w-xl rounded-lg bg-white p-8 shadow-lg">
-			<h1 class="mb-6 text-2xl font-bold text-gray-800">Form Pembelian Buku</h1>
+<div class="min-h-screen bg-bg text-fg">
+	<main class="shell flex min-h-screen items-center justify-center py-10">
+		{#if !bookTitle || !price}
+			<div class="max-w-md rounded-xl border border-line bg-surface p-8 text-center">
+				<span class="icon-[lucide--circle-x] mx-auto mb-4 block size-8 text-signal"></span>
+				<h1 class="font-display text-xl font-semibold">Parameter buku tidak valid</h1>
+				<p class="mt-2 text-muted">Silakan kembali ke halaman buku dan pilih judul yang ingin dipesan.</p>
+				<div class="mt-6 flex justify-center gap-3">
+					<button class="btn btn-outline" onclick={() => history.back()}>Kembali</button>
+					<a href="/buku" class="btn btn-signal">Lihat koleksi</a>
+				</div>
+			</div>
+		{:else}
+			<div class="w-full max-w-xl">
+				<a href="/buku" class="mb-6 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg">
+					<span class="icon-[lucide--arrow-left] size-4"></span>Kembali ke koleksi
+				</a>
 
-			<section class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-700">
-				<h2 class="mb-2 text-lg font-semibold text-blue-800">Detail Buku</h2>
-				<p><strong>Judul:</strong> {bookTitle}</p>
-				<p><strong>Harga Buku:</strong> Rp {rp(price)}</p>
-				<p><strong>Ongkos Kirim + Packing:</strong> Rp {rp(ONGKIR)}</p>
-				<p><strong>Kode Referral:</strong> {refChecked || '-'}</p>
-				{#if refValid}
-					<p class="mt-2 rounded bg-green-100 p-2 text-green-700">✅ Diskon 5% dari kode referral telah diterapkan!</p>
-				{:else if refState === 'invalid'}
-					<p class="mt-2 rounded bg-red-100 p-2 text-red-700">❌ Kode referral tidak valid atau tidak ditemukan</p>
-				{/if}
-				<p class={['mt-2 text-lg font-bold', refValid ? 'text-green-600' : 'text-blue-800']}>
-					Total Bayar: Rp {rp(total)} <span class="text-sm font-normal">(harga belum termasuk ongkos kirim)</span>
+				<div class="rounded-xl border border-line bg-surface p-7 lg:p-9">
+					<h1 class="font-display text-2xl font-semibold">Form pembelian buku</h1>
+
+					<section class="mt-6 rounded-lg bg-surface-2 p-5">
+						<h2 class="label">Detail pesanan</h2>
+						<dl class="mt-4 space-y-2.5 text-sm">
+							<div class="flex justify-between gap-4">
+								<dt class="text-muted">Judul</dt>
+								<dd class="text-right font-medium">{bookTitle}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-muted">Harga buku</dt>
+								<dd>Rp {rp(price)}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-muted">Ongkos kirim + packing</dt>
+								<dd>Rp {rp(ONGKIR)}</dd>
+							</div>
+							<div class="flex justify-between gap-4">
+								<dt class="text-muted">Kode referral</dt>
+								<dd>{refChecked || '—'}</dd>
+							</div>
+						</dl>
+
+						{#if refValid}
+							<p class="mt-4 flex items-center gap-2 text-sm text-emerald-700">
+								<span class="icon-[lucide--badge-percent] size-4"></span>Diskon 5% dari kode referral diterapkan.
+							</p>
+						{:else if refState === 'invalid'}
+							<p class="mt-4 flex items-center gap-2 text-sm text-red-700">
+								<span class="icon-[lucide--circle-x] size-4"></span>Kode referral tidak valid atau tidak ditemukan.
+							</p>
+						{/if}
+
+						<div class="rule mt-4 flex items-baseline justify-between gap-4 pt-4">
+							<span class="text-sm text-muted">Total bayar</span>
+							<span class="font-display text-2xl font-semibold {refValid ? 'text-emerald-700' : ''}">Rp {rp(total)}</span>
+						</div>
+						<p class="mt-1 text-right text-xs text-muted">Belum termasuk ongkos kirim.</p>
+					</section>
+
+					<form class="mt-7 space-y-5" onsubmit={submit}>
+						<ReferralInput
+							bind:this={referral}
+							bind:code={refCode}
+							bind:checkedCode={refChecked}
+							bind:state={refState}
+							bind:message={refMessage}
+							check={checkReferral}
+						/>
+						{#if refMessage}
+							<Notice kind={refState === 'valid' ? 'success' : refState === 'invalid' ? 'error' : 'warning'} text={refMessage} />
+						{/if}
+
+						<label class="block">
+							<span class="mb-2 block text-sm font-semibold">Nama pembeli *</span>
+							<input
+								name="buyer_name"required
+								maxlength="100" pattern="[A-Za-z\s.']+" title="Nama hanya boleh mengandung huruf, spasi, titik, dan apostrof" placeholder="Masukkan nama lengkap" autocomplete="name" class="input-field"
+							/>
+						</label>
+
+						<label class="block">
+							<span class="mb-2 block text-sm font-semibold">Alamat lengkap *</span>
+							<textarea
+								name="address"required
+								rows="3" maxlength="500" placeholder="Jalan, RT/RW, kelurahan, kecamatan, kota" autocomplete="street-address" class="input-field resize-none"
+							></textarea>
+						</label>
+
+						<div class="grid gap-5 sm:grid-cols-2">
+							<label class="block">
+								<span class="mb-2 block text-sm font-semibold">Kode pos *</span>
+								<input
+									name="kode_pos"required
+									inputmode="numeric" maxlength="5" pattern={'[0-9]{5}'}
+									title="Kode pos harus 5 digit angka" placeholder="12345" autocomplete="postal-code" oninput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/\D/g, ''))}
+									class="input-field"
+								/>
+							</label>
+
+							<label class="block">
+								<span class="mb-2 block text-sm font-semibold">Nomor HP/WhatsApp *</span>
+								<input
+									name="phone" type="tel"required
+									inputmode="numeric" maxlength="15" pattern={'[0-9]{10,15}'}
+									title="Nomor HP harus 10-15 digit angka" placeholder="08123456789" autocomplete="tel" oninput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/\D/g, ''))}
+									class="input-field"
+								/>
+							</label>
+						</div>
+
+						<label class="block">
+							<span class="mb-2 block text-sm font-semibold">Email (opsional)</span>
+							<input name="email" type="email" maxlength="100" placeholder="nama@email.com" autocomplete="email" class="input-field" />
+						</label>
+
+						<button type="submit" disabled={submitting} class="btn btn-signal w-full disabled:opacity-60">
+							{#if submitting}
+								<span class="icon-[lucide--loader-circle] size-4 animate-spin"></span>Memproses pembayaran...
+							{:else}
+								<span class="icon-[lucide--credit-card] size-4"></span>Bayar sekarang
+							{/if}
+						</button>
+
+						{#if notice}
+							<Notice kind={notice.kind} text={notice.text} />
+						{/if}
+					</form>
+				</div>
+
+				<p class="mt-5 flex items-center justify-center gap-2 text-xs text-muted">
+					<span class="icon-[lucide--lock] size-3.5"></span>Transaksi aman melalui Midtrans
 				</p>
-			</section>
-
-			<form class="space-y-5" onsubmit={submit}>
-				<ReferralInput
-					bind:this={referral}
-					bind:code={refCode}
-					bind:checkedCode={refChecked}
-					bind:state={refState}
-					bind:message={refMessage}
-					check={checkReferral}
-				/>
-				{#if refMessage}
-					<Notice kind={refState === 'valid' ? 'success' : refState === 'invalid' ? 'error' : 'warning'} text={refMessage} />
-				{/if}
-
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Nama Pembeli *</span>
-					<input
-						name="buyer_name"
-						required
-						maxlength="100"
-						pattern="[A-Za-z\s.']+"
-						title="Nama hanya boleh mengandung huruf, spasi, titik, dan apostrof"
-						placeholder="Masukkan nama lengkap"
-						autocomplete="name"
-						class="input-field"
-					/>
-				</label>
-
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Alamat Lengkap *</span>
-					<textarea
-						name="address"
-						required
-						rows="3"
-						maxlength="500"
-						placeholder="Masukkan alamat lengkap (Jalan, RT/RW, Kelurahan, Kecamatan, Kota)"
-						autocomplete="street-address"
-						class="input-field resize-none"
-					></textarea>
-				</label>
-
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Kode Pos *</span>
-					<input
-						name="kode_pos"
-						required
-						inputmode="numeric"
-						maxlength="5"
-						pattern={'[0-9]{5}'}
-						title="Kode pos harus 5 digit angka"
-						placeholder="Contoh: 12345"
-						autocomplete="postal-code"
-						oninput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/\D/g, ''))}
-						class="input-field"
-					/>
-				</label>
-
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Nomor HP/WhatsApp *</span>
-					<input
-						name="phone"
-						type="tel"
-						required
-						inputmode="numeric"
-						maxlength="15"
-						pattern={'[0-9]{10,15}'}
-						title="Nomor HP harus 10-15 digit angka"
-						placeholder="08123456789"
-						autocomplete="tel"
-						oninput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/\D/g, ''))}
-						class="input-field"
-					/>
-				</label>
-
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Email (Opsional)</span>
-					<input name="email" type="email" maxlength="100" placeholder="contoh@email.com" autocomplete="email" class="input-field" />
-				</label>
-
-				<button
-					type="submit"
-					disabled={submitting}
-					class="flex w-full items-center justify-center gap-3 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-				>
-					{#if submitting}
-						<span class="icon-[bx--loader-alt] size-5 animate-spin"></span> Memproses pembayaran...
-					{:else}
-						💳 Bayar Sekarang
-					{/if}
-				</button>
-
-				{#if notice}
-					<Notice kind={notice.kind} text={notice.text} />
-				{/if}
-			</form>
-
-			<p class="mt-6 rounded-lg bg-gray-50 p-3 text-center text-xs text-gray-600">
-				🔒 Transaksi aman menggunakan Midtrans • Data pribadi Anda terlindungi
-			</p>
-		</div>
-	{/if}
-</main>
+			</div>
+		{/if}
+	</main>
+</div>

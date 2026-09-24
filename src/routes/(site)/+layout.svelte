@@ -1,10 +1,13 @@
 <script lang="ts">
 	import Navbar from '$lib/components/Navbar.svelte';
+	import SiteFooter from '$lib/components/SiteFooter.svelte';
 
 	let { children } = $props();
+
 </script>
 
-<div class="overflow-x-clip">
+<div class="flex min-h-screen flex-col overflow-x-clip bg-bg text-fg">
 	<Navbar />
-	{@render children()}
+	<div class="flex-1">{@render children()}</div>
+	<SiteFooter />
 </div>

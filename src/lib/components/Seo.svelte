@@ -4,9 +4,9 @@
 
 	let {
 		title,
-		description = 'Buku Seri Teknologi Islami menyajikan strategi pengajaran IT yang telah terbukti selama 8 tahun di Sekolah Impian.',
-		image = '/img/Logo-Sekolah-Impian.png',
-		icon = '/img/Logo-Sekolah-Impian.png'
+		description = 'Buku Seri Teknologi Islami: strategi ajar teknologi yang telah terbukti delapan tahun di Sekolah Impian.',
+		image = '/img/khwarizmi-mark-512.png',
+		icon = '/img/khwarizmi-mark.webp'
 	}: { title: string; description?: string; image?: string; icon?: string } = $props();
 
 	const canonical = $derived(SITE_URL + page.url.pathname);

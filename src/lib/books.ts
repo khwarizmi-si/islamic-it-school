@@ -17,7 +17,7 @@ export const books = [
 			question: "GAGAL MENGENDALIKAN TEKNOLOGI?",
 			answer: "ITMI Solusinya!",
 			introHtml: "<p><span class=\"font-semibold\">Islamic Technology Mindset Installation</span> adalah metode revolusioner yang memiliki dua fungsi utama:</p><ul><li>Sebagai metode preventif &amp; kuratif untuk mudhorot teknologi</li><li>Sebagai metode belajar IT yang efektif dan lebih cepat</li></ul>",
-			warning: "⚠️ PERINGATAN: Buku ini akan mengubah cara Anda memandang teknologi!",
+			warning: "PERINGATAN: Buku ini akan mengubah cara Anda memandang teknologi!",
 			cta: "BUKTIKAN SEKARANG!",
 			mockup: "/img/ITMI/mockup-itmi.png"
 		},
@@ -90,7 +90,7 @@ export const books = [
 				"Metode belajar IT yang efektif dan lebih cepat",
 				"Strategi ajar unik berbasis mindset Islami"
 			],
-			promo: "⏳ PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
+			promo: "PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
 		}
 	},
 	{
@@ -107,8 +107,8 @@ export const books = [
 		hero: {
 			question: "GAGAL MENDIDIK GENERASI?",
 			answer: "Ini Solusi Revolusionernya!",
-			introHtml: "<p><span class=\"font-semibold\">Liquid Curriculum</span> membongkar kesalahan fatal sistem pendidikan modern dan mengungkap formula rahasia mencetak generasi <span class=\"font-bold text-yellow-300\">berakhlak mulia, bermental kuat, dan produktif</span> dalam waktu singkat!</p>",
-			warning: "⚠️ PERINGATAN: Buku ini akan mengubah paradigma Anda tentang pendidikan!",
+			introHtml: "<p><span class=\"font-semibold\">Liquid Curriculum</span> membongkar kesalahan fatal sistem pendidikan modern dan mengungkap formula rahasia mencetak generasi <span class=\"font-bold\">berakhlak mulia, bermental kuat, dan produktif</span> dalam waktu singkat!</p>",
+			warning: "PERINGATAN: Buku ini akan mengubah paradigma Anda tentang pendidikan!",
 			cta: "BUKTIKAN SEKARANG!",
 			mockup: "/img/LC/mockup-lc.png"
 		},
@@ -179,7 +179,7 @@ export const books = [
 				"Berisi rumus sukses versi/ala Sekolah Impian",
 				"Pendekatan interaktif, efektif, berbasis proyek dan sesuai dengan nilai dan Mindset Islam"
 			],
-			promo: "⏳ PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
+			promo: "PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
 		}
 	},
 	{
@@ -196,8 +196,8 @@ export const books = [
 		hero: {
 			question: "SEJARAH TEKNOLOGI",
 			answer: "Dari Perspektif Kaum Muslim",
-			introHtml: "<p>Buku ini mengungkap sejarah jujur tentang bagaimana kaum muslimin <span class=\"font-bold text-yellow-300\">memelopori kebangkitan teknologi</span> dunia dengan berpandu pada Al-Quran, serta bagaimana khazanah keilmuan ini berpindah ke Barat dan apa yang harus kita lakukan sekarang.</p>",
-			warning: "⚠️ PERINGATAN: Buku ini akan mengubah pandangan Anda tentang sejarah teknologi!",
+			introHtml: "<p>Buku ini mengungkap sejarah jujur tentang bagaimana kaum muslimin <span class=\"font-bold\">memelopori kebangkitan teknologi</span> dunia dengan berpandu pada Al-Quran, serta bagaimana khazanah keilmuan ini berpindah ke Barat dan apa yang harus kita lakukan sekarang.</p>",
+			warning: "PERINGATAN: Buku ini akan mengubah pandangan Anda tentang sejarah teknologi!",
 			cta: "BUKU SEKARANG!",
 			mockup: "/img/ST/mockup-st.png"
 		},
@@ -270,7 +270,7 @@ export const books = [
 				"Menjelaskan metode penelitian islami yang menghasilkan penemuan-penemuan penting",
 				"Memberikan panduan bagaimana generasi muslim bisa kembali unggul di bidang teknologi"
 			],
-			promo: "⏳ PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
+			promo: "PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
 		}
 	},
 	{
@@ -287,8 +287,8 @@ export const books = [
 		hero: {
 			question: "MENTAL BELAJAR",
 			answer: "TEKNOLOGI",
-			introHtml: "<p>Teknologi bagaikan kotak pandora, di dalamnya terdapat keburukan dan manfaat. <span class=\"font-bold text-yellow-300\">Buku ini menjadi penting bagi pendidik</span> (orang tua dan guru) karena di dalamnya terdapat langkah demi langkah untuk membangun mental berteknologi yang tangguh.</p>",
-			warning: "⚠️ PERINGATAN: Buku ini akan mengubah cara pandang Anda tentang pendidikan teknologi!",
+			introHtml: "<p>Teknologi bagaikan kotak pandora, di dalamnya terdapat keburukan dan manfaat. <span class=\"font-bold\">Buku ini menjadi penting bagi pendidik</span> (orang tua dan guru) karena di dalamnya terdapat langkah demi langkah untuk membangun mental berteknologi yang tangguh.</p>",
+			warning: "PERINGATAN: Buku ini akan mengubah cara pandang Anda tentang pendidikan teknologi!",
 			cta: "BUKU SEKARANG!",
 			mockup: "/img/BT/cover.jpg"
 		},
@@ -359,7 +359,7 @@ export const books = [
 				"Mengembangkan mental fokus pada manfaat teknologi",
 				"Langkah praktis membentuk mental produktif dan monetitatif dalam berteknologi"
 			],
-			promo: "⏳ PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
+			promo: "PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
 		}
 	},
 	{
@@ -376,8 +376,8 @@ export const books = [
 		hero: {
 			question: "EFEKTIVITAS PEMBELAJARAN IT",
 			answer: "DENGAN PROYEK FESTIVAL!",
-			introHtml: "<p><span class=\"font-semibold\">IT Dengan Proyek Festival</span> membahas strategi pembelajaran berbasis proyek dengan <span class=\"font-bold text-yellow-300\">persentase keberhasilan 85%</span> dibanding pembelajaran teori saja yang hanya 55%.</p>",
-			warning: "⚠️ PERINGATAN: Buku ini akan mengubah metode pengajaran IT Anda!",
+			introHtml: "<p><span class=\"font-semibold\">IT Dengan Proyek Festival</span> membahas strategi pembelajaran berbasis proyek dengan <span class=\"font-bold\">persentase keberhasilan 85%</span> dibanding pembelajaran teori saja yang hanya 55%.</p>",
+			warning: "PERINGATAN: Buku ini akan mengubah metode pengajaran IT Anda!",
 			cta: "BUKTIKAN SEKARANG!",
 			mockup: "/img/IT-PF/mockup-it-pf.png"
 		},
@@ -448,7 +448,7 @@ export const books = [
 				"Peningkatan kualitas guru IT",
 				"Tingkat keberhasilan pembelajaran 85%"
 			],
-			promo: "⏳ PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
+			promo: "PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
 		}
 	},
 	{
@@ -465,8 +465,8 @@ export const books = [
 		hero: {
 			question: "BELAJAR IT TANPA HASIL?",
 			answer: "Ini Solusi Produktifnya!",
-			introHtml: "<p><span class=\"font-semibold\">IT Berorientasi Produktif</span> membongkar kesalahan fatal pembelajaran IT konvensional dan mengungkap cara <span class=\"font-bold text-yellow-300\">belajar sambil menghasilkan karya nyata</span> yang bisa menjadi portofolio!</p>",
-			warning: "⚠️ PERINGATAN: Buku ini akan mengubah cara Anda belajar IT!",
+			introHtml: "<p><span class=\"font-semibold\">IT Berorientasi Produktif</span> membongkar kesalahan fatal pembelajaran IT konvensional dan mengungkap cara <span class=\"font-bold\">belajar sambil menghasilkan karya nyata</span> yang bisa menjadi portofolio!</p>",
+			warning: "PERINGATAN: Buku ini akan mengubah cara Anda belajar IT!",
 			cta: "BUKTIKAN SEKARANG!",
 			mockup: "/img/IT-BP/mockup-it-bp.png"
 		},
@@ -537,7 +537,7 @@ export const books = [
 				"Panduan membangun portofolio IT",
 				"Mindset produktif ala Islam"
 			],
-			promo: "⏳ PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
+			promo: "PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
 		}
 	},
 	{
@@ -554,8 +554,8 @@ export const books = [
 		hero: {
 			question: "MENGUASAI TEKNOLOGI TANPA HASIL?",
 			answer: "Ini Rahasia Monetisasinya!",
-			introHtml: "<p><span class=\"font-semibold\">IT Berorientasi Monetitatif</span> membongkar rahasia untuk menjadikan anak tidak hanya kreatif dan inovatif namun juga memiliki kemampuan untuk menghasilkan pendapatan dari skill teknologi <span class=\"font-bold text-yellow-300\">dengan pendekatan Islami yang halal dan berkah</span>.</p>",
-			warning: "⚠️ PERINGATAN: Buku ini akan mengubah cara pandang Anda tentang pembelajaran IT!",
+			introHtml: "<p><span class=\"font-semibold\">IT Berorientasi Monetitatif</span> membongkar rahasia untuk menjadikan anak tidak hanya kreatif dan inovatif namun juga memiliki kemampuan untuk menghasilkan pendapatan dari skill teknologi <span class=\"font-bold\">dengan pendekatan Islami yang halal dan berkah</span>.</p>",
+			warning: "PERINGATAN: Buku ini akan mengubah cara pandang Anda tentang pembelajaran IT!",
 			cta: "BUKTIKAN SEKARANG!",
 			mockup: "/img/IT-BM/mockup-it-bm.png"
 		},
@@ -627,7 +627,7 @@ export const books = [
 				"Membangun mindset technopreneur sejak dini",
 				"Strategi menghasilkan dari teknologi yang halal dan berkah"
 			],
-			promo: "⏳ PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
+			promo: "PROMO TERBATAS! Hanya untuk 50 pembeli pertama bulan ini"
 		}
 	}
 ];

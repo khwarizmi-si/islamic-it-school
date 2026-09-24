@@ -25,10 +25,10 @@
 	async function confirmBookOrder(id: string) {
 		const logId = id.match(/ORDER-\d+-(\d+)$/)?.[1];
 		if (!logId) {
-			status = { kind: 'error', text: '⚠️ Format Order ID tidak valid' };
+			status = { kind: 'error', text: 'Format Order ID tidak valid' };
 			return;
 		}
-		status = { kind: 'pending', text: '🔄 Memperbarui status transaksi...' };
+		status = { kind: 'pending', text: 'Memperbarui status transaksi...' };
 		await new Promise((r) => setTimeout(r, WEBHOOK_GRACE_MS)); // let the Midtrans webhook land first
 		try {
 			const current = await fetchJson<{ status?: string }>(`${API_BASE}/logs/${logId}`).catch(() => null);
@@ -38,14 +38,14 @@
 					body: JSON.stringify({ status: 'success', order_id: id })
 				});
 			}
-			status = { kind: 'success', text: '✅ Status transaksi berhasil diperbarui' };
+			status = { kind: 'success', text: 'Status transaksi berhasil diperbarui' };
 			try {
 				localStorage.removeItem(LAST_ORDER_KEY);
 			} catch {
 				// nothing to clean up
 			}
 		} catch (e) {
-			status = { kind: 'error', text: `⚠️ ${(e as Error).message}` };
+			status = { kind: 'error', text: ` ${(e as Error).message}` };
 		}
 	}
 
@@ -59,7 +59,7 @@
 		}
 		if (!isWebinar) {
 			if (orderId) confirmBookOrder(orderId).then(() => (countdown = REDIRECT_AFTER_S));
-			else status = { kind: 'error', text: '⚠️ Order ID tidak ditemukan' };
+			else status = { kind: 'error', text: 'Order ID tidak ditemukan' };
 		}
 	});
 
@@ -75,64 +75,85 @@
 </script>
 
 <svelte:head>
-	<title>Pembayaran Berhasil | Islamic IT School</title>
+	<title>Pembayaran Berhasil | Khwarizmi</title>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<main class="flex min-h-screen items-center justify-center bg-linear-to-br from-green-50 to-blue-50 p-6">
-	<div class="w-full max-w-md rounded-xl bg-white p-8 text-center shadow-lg">
-		<div class="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-green-100">
-			<span class="icon-[bx--check] size-9 text-green-600"></span>
-		</div>
-		<h1 class="mb-4 text-2xl font-bold text-gray-800">Pembayaran Berhasil!</h1>
-		<p class="mb-6 text-gray-600">
-			{isWebinar ? 'Terima kasih telah mendaftar.' : 'Terima kasih atas pembelian Anda.'} Transaksi telah berhasil diproses.
-		</p>
-
-		<dl class="mb-6 space-y-2 rounded-lg bg-gray-50 p-4 text-left text-sm text-gray-600">
-			<div><dt class="inline font-bold">Order ID:</dt> <dd class="inline text-gray-800">{orderId ?? 'Tidak tersedia'}</dd></div>
-			<div><dt class="inline font-bold">Status:</dt> <dd class="inline font-semibold text-green-600">Berhasil</dd></div>
-		</dl>
-
-		{#if status}
-			<p
-				class={[
-					'mb-6 rounded-lg border p-3 text-sm',
-					status.kind === 'pending' && 'border-yellow-200 bg-yellow-50 text-yellow-700',
-					status.kind === 'success' && 'border-green-200 bg-green-50 text-green-700',
-					status.kind === 'error' && 'border-red-200 bg-red-50 text-red-700'
-				]}
-				role="status"
-			>
-				{status.text}
+<div class="min-h-screen bg-bg text-fg">
+	<main class="shell flex min-h-screen items-center justify-center py-10">
+		<div class="w-full max-w-lg rounded-xl border border-line bg-surface p-8 lg:p-10">
+			<span class="flex size-14 items-center justify-center rounded-full bg-emerald-600/12 text-emerald-700">
+				<span class="icon-[lucide--check] size-7"></span>
+			</span>
+			<h1 class="mt-6 font-display text-2xl font-semibold">Pembayaran berhasil</h1>
+			<p class="mt-2 text-muted">
+				{isWebinar ? 'Terima kasih telah mendaftar.' : 'Terima kasih atas pembelian Anda.'} Transaksi sudah kami terima.
 			</p>
-		{/if}
 
-		<div class="mb-6 rounded-lg bg-blue-50 p-4 text-left">
-			<h2 class="mb-2 font-semibold text-blue-800">Langkah Selanjutnya:</h2>
-			<ul class="space-y-1 text-sm text-blue-700">
-				{#each steps as step (step)}
-					<li>• {step}</li>
-				{/each}
-			</ul>
-		</div>
+			<dl class="mt-6 space-y-2.5 rounded-lg bg-surface-2 p-5 text-sm">
+				<div class="flex justify-between gap-4">
+					<dt class="text-muted">Order ID</dt>
+					<dd class="text-right font-medium break-all">{orderId ?? 'Tidak tersedia'}</dd>
+				</div>
+				<div class="flex justify-between gap-4">
+					<dt class="text-muted">Status</dt>
+					<dd class="font-medium text-emerald-700">Berhasil</dd>
+				</div>
+			</dl>
 
-		<div class="space-y-3 print:hidden">
-			<a href="/" class="block w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700">Kembali ke Beranda</a>
-			<button class="w-full rounded-lg bg-gray-200 px-6 py-3 font-semibold text-gray-700 transition hover:bg-gray-300" onclick={() => print()}>
-				Cetak Bukti Pembayaran
-			</button>
-		</div>
+			{#if status}
+				<p
+					class={[
+						'mt-4 flex items-start gap-2.5 rounded-lg border p-3.5 text-sm',
+						status.kind === 'pending' && 'border-amber-600/30 bg-amber-500/10 text-amber-800',
+						status.kind === 'success' && 'border-emerald-600/30 bg-emerald-600/10 text-emerald-800',
+						status.kind === 'error' && 'border-red-600/30 bg-red-600/10 text-red-800'
+					]}
+					role="status"
+				>
+					<span
+						class={[
+							'mt-0.5 size-4 shrink-0',
+							status.kind === 'pending' && 'icon-[lucide--loader-circle] animate-spin',
+							status.kind === 'success' && 'icon-[lucide--check-circle-2]',
+							status.kind === 'error' && 'icon-[lucide--triangle-alert]'
+						]}
+					></span>
+					{status.text}
+				</p>
+			{/if}
 
-		{#if countdown !== null}
-			<p class="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700 print:hidden">
-				Akan redirect ke beranda dalam {countdown} detik
-				<button class="ml-2 text-blue-800 underline hover:no-underline" onclick={() => (countdown = null)}>Batalkan</button>
+			<div class="mt-6">
+				<h2 class="label">Langkah selanjutnya</h2>
+				<ul class="mt-3 space-y-2.5">
+					{#each steps as step (step)}
+						<li class="flex items-start gap-2.5 text-muted">
+							<span class="icon-[lucide--arrow-right] mt-1 size-4 shrink-0 text-signal"></span>{step}
+						</li>
+					{/each}
+				</ul>
+			</div>
+
+			<div class="mt-8 flex flex-col gap-3 sm:flex-row print:hidden">
+				<a href="/" class="btn btn-signal flex-1">Kembali ke beranda</a>
+				<button class="btn btn-outline flex-1" onclick={() => print()}>
+					<span class="icon-[lucide--printer] size-4"></span>Cetak bukti
+				</button>
+			</div>
+
+			{#if countdown !== null}
+				<p class="mt-4 flex items-center justify-center gap-2 text-sm text-muted print:hidden">
+					Kembali ke beranda dalam {countdown} detik
+					<button class="underline underline-offset-2 hover:no-underline" onclick={() => (countdown = null)}>Batalkan</button>
+				</p>
+			{/if}
+
+			<p class="rule mt-8 pt-5 text-sm text-muted">
+				Butuh bantuan?
+				<a href={waLink('Halo, saya butuh bantuan terkait pembayaran.')} target="_blank" rel="noopener" class="text-fg underline underline-offset-2">
+					Hubungi kami di WhatsApp
+				</a>
 			</p>
-		{/if}
-
-		<p class="mt-6 border-t border-gray-200 pt-4 text-xs text-gray-500">
-			Butuh bantuan? <a href={waLink('Halo, saya butuh bantuan terkait pembayaran')} class="text-blue-600 hover:underline">Hubungi Support</a>
-		</p>
-	</div>
-</main>
+		</div>
+	</main>
+</div>

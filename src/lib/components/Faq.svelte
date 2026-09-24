@@ -1,49 +1,97 @@
 <script lang="ts" module>
-	export type FaqItem = { q: string; a: string; icon: string; accent: string };
+	export type FaqItem = { q: string; a: string };
 </script>
 
 <script lang="ts">
-	import { reveal } from '$lib/reveal';
-
-	/** `a` is trusted, author-written HTML (links, line breaks). */
-	let { items }: { items: FaqItem[] } = $props();
-
-	let openIndex = $state<number | null>(null);
+	/** `a` is trusted, author-written HTML (links, lists, line breaks). */
+	let { items, name = 'faq' }: { items: FaqItem[]; name?: string } = $props();
 </script>
 
-<div class="space-y-6">
-	{#each items as item, i (item.q)}
-		{@const open = openIndex === i}
-		<div
-			class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-transform hover:-translate-y-0.5"
-			style:transition-delay="{i * 0.1}s"
-			{@attach reveal}
-		>
-			<button
-				class="flex w-full items-center justify-between gap-4 p-6 text-left focus:ring-4 focus:ring-purple-100 focus:outline-none"
-				aria-expanded={open}
-				aria-controls="faq-{i}"
-				onclick={() => (openIndex = open ? null : i)}
-			>
-				<span class="flex items-center gap-4">
-					<span
-						class="flex size-10 shrink-0 items-center justify-center rounded-full bg-linear-to-r text-white {item.accent}"
-					>
-						<span class="size-5 {item.icon}"></span>
-					</span>
-					<h3 class="text-lg font-bold text-gray-800">{item.q}</h3>
-				</span>
-				<span
-					class={['icon-[bx--chevron-down] size-6 shrink-0 text-gray-400 transition-transform duration-300', open && 'rotate-180']}
-				></span>
-			</button>
-			<div id="faq-{i}" class="grid transition-all duration-300 {open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}">
-				<div class="overflow-hidden px-6">
-					<div class="mb-6 rounded-lg border-l-4 border-teal-400 bg-linear-to-r from-orange-50 to-teal-50 p-4 leading-relaxed text-gray-700 [&_a]:text-blue-600 [&_a:hover]:underline">
-						{@html item.a}
-					</div>
-				</div>
-			</div>
-		</div>
+<div class="faq">
+	{#each items as item (item.q)}
+		<details {name}>
+			<summary>
+				<span>{item.q}</span>
+				<span class="icon-[lucide--plus] chev size-5 shrink-0 text-muted"></span>
+			</summary>
+			<div class="answer">{@html item.a}</div>
+		</details>
 	{/each}
 </div>
+
+<style>
+	.faq {
+		border-top: 1px solid var(--color-line);
+	}
+	details {
+		border-bottom: 1px solid var(--color-line);
+	}
+	summary {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding: 1.4rem 0;
+		font-family: var(--font-display);
+		font-size: 1.05rem;
+		font-weight: 600;
+		line-height: 1.45;
+		cursor: pointer;
+		list-style: none;
+		transition: color 0.25s var(--ease-out-quart);
+	}
+	summary::-webkit-details-marker {
+		display: none;
+	}
+	summary:hover {
+		color: var(--color-signal);
+	}
+	.chev {
+		margin-top: 0.15rem;
+		transition: rotate 0.35s var(--ease-out-quart);
+	}
+	details[open] .chev {
+		rotate: 45deg;
+		color: var(--color-signal);
+	}
+	.answer {
+		padding-bottom: 1.5rem;
+		max-width: 70ch;
+		line-height: 1.7;
+		color: var(--color-muted);
+	}
+	.answer :global(a) {
+		color: var(--color-fg);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		text-decoration-color: var(--color-signal);
+	}
+	.answer :global(ol) {
+		margin: 1rem 0;
+		padding-left: 1.2rem;
+		list-style: decimal;
+	}
+	.answer :global(li) {
+		margin-block: 0.4rem;
+	}
+	.answer :global(p) {
+		margin-top: 1rem;
+	}
+
+	/* Animate the disclosure where the browser supports it; a plain toggle elsewhere. */
+	@supports (interpolate-size: allow-keywords) {
+		details::details-content {
+			block-size: 0;
+			overflow: hidden;
+			opacity: 0;
+			transition:
+				block-size 0.45s var(--ease-out-quart),
+				content-visibility 0.45s allow-discrete,
+				opacity 0.3s var(--ease-out-quart);
+		}
+		details[open]::details-content {
+			block-size: auto;
+			opacity: 1;
+		}
+	}
+</style>

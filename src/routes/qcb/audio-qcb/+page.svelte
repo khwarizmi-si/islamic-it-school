@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { mediaUrl } from '$lib/site';
+	import { BRAND_MARK, mediaUrl, SITE_NAME } from '$lib/site';
 	import pages from './audios.json';
 
 	const voices = [
-		{ id: 'ikhwan', label: 'Ikhwan' },
-		{ id: 'akhwat', label: 'Akhwat' }
+		{ id: 'ikhwan', label: 'Ikhwan', icon: 'icon-[lucide--user]' },
+		{ id: 'akhwat', label: 'Akhwat', icon: 'icon-[lucide--user-round]' }
 	];
 
 	const entry = $derived(pages.find((p) => p.id === page.url.searchParams.get('id')));
@@ -14,57 +14,66 @@
 </script>
 
 <svelte:head>
-	<title>{entry ? `${entry.title} | Audio QCB` : 'Audio QCB'}</title>
-	<link rel="icon" href="/qcb/logo-si.png" />
+	<title>{entry ? `${entry.title} — Audio QCB` : 'Audio QCB'}</title>
+	<link rel="icon" href={BRAND_MARK} />
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<main class="flex min-h-screen items-center justify-center bg-linear-135 from-[#ff6b35] to-green-500 px-4 py-8">
-	<div class="w-full max-w-lg animate-fade-in-up rounded-3xl border border-white/20 bg-white/25 p-8 text-center shadow-2xl backdrop-blur-xl">
+<div class="min-h-screen bg-bg text-fg">
+	<main class="shell flex min-h-screen max-w-xl flex-col justify-center py-12">
 		{#if entry}
-			<div class="mx-auto mb-6 flex size-24 animate-float-soft items-center justify-center rounded-full bg-white/20">
-				<img src="/qcb/Logo-SI.jpg" alt="Sekolah Impian" class="size-20 rounded-full object-cover" />
+			<div class="flex items-center gap-2.5">
+				<img src={BRAND_MARK} alt="" width="22" height="34" class="h-8 w-auto" />
+				<span class="font-display font-semibold">{SITE_NAME}</span>
 			</div>
-			<p class="mb-2 text-xl text-white/70">{entry.title}</p>
-			<h1 class="mb-6 text-2xl text-white">{entry.subtitle}</h1>
 
-			<fieldset class="mb-6 text-left">
-				<legend class="mb-3 flex items-center gap-2 font-semibold text-white">
-					<span class="icon-[bx--microphone] size-5"></span>Pilih Suara
+			<p class="label mt-10">{entry.title}</p>
+			<h1 class="mt-2 font-display text-3xl leading-tight font-semibold">{entry.subtitle}</h1>
+
+			<fieldset class="mt-9">
+				<legend class="mb-3 flex items-center gap-2 text-sm font-semibold">
+					<span class="icon-[lucide--mic] size-4 text-signal"></span>Pilih suara
 				</legend>
 				<div class="grid grid-cols-2 gap-3">
 					{#each voices as v (v.id)}
 						<label
 							class={[
-								'flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 font-medium text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/25',
-								voice === v.id ? 'border-green-400 bg-white/25' : 'border-white/20 bg-white/15'
+								'flex cursor-pointer items-center justify-center gap-2 rounded-lg border px-5 py-4 font-medium transition-colors',
+								voice === v.id ? 'border-signal bg-signal/10 text-fg' : 'border-line text-muted hover:border-fg hover:text-fg'
 							]}
 						>
 							<input type="radio" name="voice" value={v.id} bind:group={voice} class="sr-only" />
-							<span class="icon-[bx--user] size-5"></span>{v.label}
+							<span class="{v.icon} size-4"></span>{v.label}
 						</label>
 					{/each}
 				</div>
 			</fieldset>
 
 			{#if voice}
-				<ul class="space-y-6">
-					{#each audios as a, i (a.url)}
-						<li class="animate-fade-in-up rounded-2xl bg-white/10 p-6" style:animation-delay="{i * 0.1}s">
-							<h2 class="mb-4 text-lg font-semibold text-white">{a.title}</h2>
-							<audio controls preload="none" class="w-full invert hue-rotate-180" src={mediaUrl(`qcb/${a.url}`)}></audio>
+				<ul class="mt-8 space-y-4">
+					{#each audios as a (a.url)}
+						<li class="rounded-lg border border-line bg-surface p-5">
+							<h2 class="mb-3 flex items-center gap-2 font-display font-semibold">
+								<span class="icon-[lucide--audio-lines] size-4 text-signal"></span>Audio {a.title}
+							</h2>
+							<audio controls preload="none" class="w-full" src={mediaUrl(`qcb/${a.url}`)}></audio>
 						</li>
 					{:else}
-						<li class="rounded-2xl bg-white/10 p-6 text-white/80">Belum ada audio untuk suara ini.</li>
+						<li class="rounded-lg border border-line p-6 text-center text-muted">Belum ada audio untuk suara ini.</li>
 					{/each}
 				</ul>
+			{:else}
+				<p class="mt-8 flex items-center gap-2 text-sm text-muted">
+					<span class="icon-[lucide--arrow-up] size-4"></span>Pilih salah satu suara untuk memutar audio.
+				</p>
 			{/if}
 		{:else}
-			<div class="mx-auto mb-4 flex size-24 items-center justify-center rounded-full bg-red-500/20">
-				<span class="icon-[bx--error-circle] size-12 text-red-300"></span>
+			<div class="text-center">
+				<span class="icon-[lucide--file-question] mx-auto block size-10 text-signal"></span>
+				<h1 class="mt-5 font-display text-2xl font-semibold">Audio tidak ditemukan</h1>
+				<p class="mt-2 text-muted">Periksa kembali kode QR pada buku, atau hubungi kami jika masalah berlanjut.</p>
+				<a href="/" class="btn btn-outline mt-7">Kembali ke beranda</a>
 			</div>
-			<h1 class="mb-2 text-2xl font-bold text-white">Oops!</h1>
-			<p class="text-white/80">Audio tidak dapat dimuat</p>
 		{/if}
-	</div>
-</main>
+	</main>
+</div>

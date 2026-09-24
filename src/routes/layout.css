@@ -1,32 +1,55 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/inter';
+@import '@fontsource-variable/literata';
+@import '@fontsource-variable/schibsted-grotesk';
 @plugin '@iconify/tailwind4';
 
+/*
+ * Khwarizmi design system.
+ * Surfaces come in two themes: `theme-night` (deep violet, taken from the books' own ink) for the
+ * home page, the catalogue and the book landings; `theme-paper` for the reading-heavy pages.
+ * Components never hardcode a colour — they use the semantic tokens below and inherit the theme.
+ */
 @theme {
-	--font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+	/* Defaults = paper. `.theme-night` overrides the same custom properties, so every
+	   Tailwind colour utility (including opacity modifiers like bg-bg/85) follows the theme. */
+	--color-bg: oklch(0.985 0.004 300);
+	--color-surface: oklch(1 0 0);
+	--color-surface-2: oklch(0.955 0.008 300);
+	--color-fg: oklch(0.225 0.05 300);
+	--color-muted: oklch(0.455 0.03 300);
+	--color-line: oklch(0.225 0.05 300 / 0.14);
+	--color-signal: oklch(0.53 0.2 40);
+	--color-on-signal: oklch(1 0 0);
+	--color-support: oklch(0.5 0.09 185);
 
-	--color-brand-orange: #f97316;
-	--color-brand-teal: #0d9488;
+	--font-display: 'Literata Variable', Georgia, 'Times New Roman', serif;
+	--font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
 
-	--animate-float: float 6s ease-in-out infinite;
-	--animate-float-soft: float-soft 3s ease-in-out infinite;
-	--animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-	--animate-fade-in-up: fade-in-up 0.8s ease-out both;
-	--animate-fade-in-left: fade-in-left 0.8s ease-out both;
-	--animate-fade-in-right: fade-in-right 0.8s ease-out both;
-	--animate-scale-in: scale-in 0.6s ease-out both;
-	--animate-gradient-shift: gradient-shift 3s ease-in-out infinite;
+	--text-hero: clamp(2.5rem, 1.15rem + 4.6vw, 4.75rem);
+	--text-hero--line-height: 1.02;
+	--text-hero--letter-spacing: -0.03em;
+	--text-title: clamp(1.9rem, 1.2rem + 2.4vw, 3.1rem);
+	--text-title--line-height: 1.08;
+	--text-title--letter-spacing: -0.025em;
+	--text-head: clamp(1.4rem, 1.1rem + 1.1vw, 1.95rem);
+	--text-head--line-height: 1.2;
+	--text-head--letter-spacing: -0.015em;
+	--text-lede: clamp(1.05rem, 1rem + 0.35vw, 1.3rem);
+	--text-lede--line-height: 1.6;
 
-	@keyframes float {
-		0%,
-		100% {
-			transform: translateY(0) rotate(0deg);
+	--ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+	--animate-rise: rise 0.9s var(--ease-out-quart) both;
+	--animate-float-soft: float-soft 6s ease-in-out infinite;
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(1.25rem);
 		}
-		33% {
-			transform: translateY(-20px) rotate(1deg);
-		}
-		66% {
-			transform: translateY(-10px) rotate(-1deg);
+		to {
+			opacity: 1;
+			transform: none;
 		}
 	}
 	@keyframes float-soft {
@@ -35,146 +58,169 @@
 			transform: translateY(0);
 		}
 		50% {
-			transform: translateY(-10px);
-		}
-	}
-	@keyframes fade-in-up {
-		from {
-			opacity: 0;
-			transform: translateY(30px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-	@keyframes fade-in-left {
-		from {
-			opacity: 0;
-			transform: translateX(-30px);
-		}
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
-	}
-	@keyframes fade-in-right {
-		from {
-			opacity: 0;
-			transform: translateX(30px);
-		}
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
-	}
-	@keyframes scale-in {
-		from {
-			opacity: 0;
-			transform: scale(0.8);
-		}
-		to {
-			opacity: 1;
-			transform: scale(1);
-		}
-	}
-	@keyframes gradient-shift {
-		0%,
-		100% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
+			transform: translateY(-0.75rem);
 		}
 	}
 }
 
-/* Keep Tailwind v3 defaults the legacy markup was designed against. */
+/* Night: the violet-black of the book covers (#140c1c / #04142c sampled from the artwork). */
+.theme-night {
+	--color-bg: oklch(0.165 0.042 300);
+	--color-surface: oklch(0.215 0.048 300);
+	--color-surface-2: oklch(0.26 0.05 300);
+	--color-fg: oklch(0.97 0.012 95);
+	--color-muted: oklch(0.79 0.028 300);
+	--color-line: oklch(0.97 0.012 95 / 0.16);
+	--color-signal: oklch(0.74 0.17 55);
+	--color-on-signal: oklch(0.21 0.05 60);
+	--color-support: oklch(0.78 0.11 180);
+	color-scheme: dark;
+}
+
+/* Paper: a true off-white tinted toward the brand violet, never cream.
+   0.53 on the signal keeps small orange text and white-on-orange buttons above 4.5:1. */
+.theme-paper {
+	--color-bg: oklch(0.985 0.004 300);
+	--color-surface: oklch(1 0 0);
+	--color-surface-2: oklch(0.955 0.008 300);
+	--color-fg: oklch(0.225 0.05 300);
+	--color-muted: oklch(0.455 0.03 300);
+	--color-line: oklch(0.225 0.05 300 / 0.14);
+	--color-signal: oklch(0.53 0.2 40);
+	--color-on-signal: oklch(1 0 0);
+	--color-support: oklch(0.5 0.09 185);
+	color-scheme: light;
+}
+
 @layer base {
-	*,
-	::after,
-	::before,
-	::backdrop,
-	::file-selector-button {
-		border-color: var(--color-gray-200, currentColor);
-	}
-	button:not(:disabled),
-	[role='button']:not(:disabled) {
-		cursor: pointer;
+	html {
+		background: var(--color-bg);
+		/* lets <details> and other auto-sized boxes animate open */
+		interpolate-size: allow-keywords;
 	}
 	/* Smooth only once the user interacts: a global `smooth` breaks the jump to #hash on first load. */
 	html:focus-within {
 		scroll-behavior: smooth;
 	}
+	body {
+		background: var(--color-bg);
+		color: var(--color-fg);
+		font-family: var(--font-sans);
+		font-synthesis-weight: none;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1,
+	h2,
+	h3 {
+		font-family: var(--font-display);
+		text-wrap: balance;
+	}
+	p {
+		text-wrap: pretty;
+	}
+	button:not(:disabled),
+	[role='button']:not(:disabled) {
+		cursor: pointer;
+	}
+	:focus-visible {
+		outline: 2px solid var(--color-signal);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+	::selection {
+		background: var(--color-signal);
+		color: var(--color-on-signal);
+	}
+	*,
+	::after,
+	::before {
+		border-color: var(--color-line);
+	}
 }
 
-@utility gradient-bg {
-	background: linear-gradient(135deg, var(--color-brand-orange) 0%, var(--color-brand-teal) 100%);
-}
-@utility gradient-text {
-	background: linear-gradient(135deg, var(--color-brand-orange) 0%, var(--color-brand-teal) 100%);
-	background-clip: text;
-	color: transparent;
-}
-@utility glass {
-	backdrop-filter: blur(20px);
+/* The page gutter every section shares. */
+@utility shell {
+	width: 100%;
+	max-width: 78rem;
+	margin-inline: auto;
+	padding-inline: clamp(1.25rem, 4vw, 3.5rem);
 }
 
-/* Emerald → teal → orange: the course/training pages' accent. */
-@utility gradient-tri {
-	background: linear-gradient(135deg, #10b981 0%, var(--color-brand-teal) 50%, var(--color-brand-orange) 100%);
+/* Section rhythm: generous by default, `tight` where two blocks belong together. */
+@utility band {
+	padding-block: clamp(3.5rem, 2rem + 6vw, 7.5rem);
 }
-@utility gradient-tri-text {
-	background: linear-gradient(135deg, #10b981 0%, var(--color-brand-teal) 50%, var(--color-brand-orange) 100%);
-	background-clip: text;
-	color: transparent;
+@utility band-tight {
+	padding-block: clamp(2.5rem, 1.5rem + 3vw, 4rem);
 }
-@utility card-lift {
+
+/* Small caps label. Used sparingly — never as an eyebrow above every heading. */
+@utility label {
+	font-size: 0.78rem;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+}
+
+@utility btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.55rem;
+	padding: 0.85rem 1.45rem;
+	border-radius: 0.3rem;
+	font-weight: 600;
+	line-height: 1;
+	text-align: center;
 	transition:
-		transform 0.3s ease,
-		box-shadow 0.3s ease;
+		background-color 0.25s var(--ease-out-quart),
+		color 0.25s var(--ease-out-quart),
+		border-color 0.25s var(--ease-out-quart),
+		transform 0.25s var(--ease-out-quart);
 	&:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 15px 35px rgb(0 0 0 / 0.1);
+		transform: translateY(-2px);
+	}
+	&:active {
+		transform: none;
+	}
+}
+@utility btn-signal {
+	background: var(--color-signal);
+	color: var(--color-on-signal);
+	&:hover {
+		background: color-mix(in oklch, var(--color-signal) 88%, var(--color-fg));
+	}
+}
+@utility btn-solid {
+	background: var(--color-fg);
+	color: var(--color-bg);
+	&:hover {
+		background: color-mix(in oklch, var(--color-fg) 88%, var(--color-signal));
+	}
+}
+@utility btn-outline {
+	border: 1px solid var(--color-line);
+	color: var(--color-fg);
+	&:hover {
+		border-color: var(--color-fg);
 	}
 }
 
-/* Gradient button with a light sweep on hover. */
-.btn-shine {
-	position: relative;
-	overflow: hidden;
-	background: linear-gradient(135deg, #10b981 0%, var(--color-brand-teal) 50%, var(--color-brand-orange) 100%);
-	transition:
-		transform 0.3s ease,
-		box-shadow 0.3s ease;
-	&:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 25px rgb(16 185 129 / 0.4);
-	}
-	&::after {
-		content: '';
-		position: absolute;
-		inset: -50%;
-		translate: -100% 0;
-		rotate: 30deg;
-		background: linear-gradient(to bottom right, transparent 0%, rgb(255 255 255 / 0.3) 50%, transparent 100%);
-		transition: translate 0.5s ease;
-		pointer-events: none;
-	}
-	&:hover::after {
-		translate: 100% 0;
-	}
+/* Hairline rule used to separate sections without a heavy border. */
+@utility rule {
+	border-top: 1px solid var(--color-line);
 }
 
-/* Scroll-reveal target, toggled by the `reveal` attachment. */
-.reveal {
+/* Scroll reveal. The default state is visible; JS opts an element in, so no-JS and
+   headless renders still show content. */
+.reveal[data-reveal] {
 	opacity: 0;
-	transform: translateY(30px);
+	transform: translateY(1.5rem);
 	transition:
-		opacity 0.6s ease,
-		transform 0.6s ease;
+		opacity 0.8s var(--ease-out-quart),
+		transform 0.8s var(--ease-out-quart);
 }
-.reveal.is-visible {
+.reveal[data-reveal].is-visible {
 	opacity: 1;
 	transform: none;
 }
@@ -188,26 +234,8 @@
 		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
 	}
-	.reveal {
+	.reveal[data-reveal] {
 		opacity: 1;
 		transform: none;
-	}
-}
-
-/* Text inputs on the order/registration forms. */
-@utility input-field {
-	width: 100%;
-	border-radius: var(--radius-lg);
-	border: 1px solid var(--color-gray-300);
-	padding: --spacing(3) --spacing(4);
-	transition: box-shadow 0.2s;
-	&:focus {
-		outline: none;
-		border-color: transparent;
-		box-shadow: 0 0 0 2px var(--color-blue-500);
-	}
-	&:user-invalid {
-		border-color: var(--color-red-500);
-		background: var(--color-red-50);
 	}
 }

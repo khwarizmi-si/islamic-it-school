@@ -23,7 +23,7 @@
 	let sidebarOpen = $state(false);
 	let ready = $state(false);
 
-	// Guard: no token → login; wrong role → that role's dashboard.
+	// Guard: no token  login; wrong role  that role's dashboard.
 	$effect(() => {
 		if (!session.token) {
 			goto('/admin');
@@ -82,9 +82,7 @@
 			</button>
 			<p class="ml-auto flex items-center gap-2 text-gray-700">
 				<img
-					src="https://ui-avatars.com/api/?name={encodeURIComponent(session.user?.name ?? title)}&background=random"
-					alt=""
-					class="size-10 rounded-full"
+					src="https://ui-avatars.com/api/?name={encodeURIComponent(session.user?.name ?? title)}&background=random" alt="" class="size-10 rounded-full"
 				/>
 				{session.user?.name ?? ''}
 			</p>

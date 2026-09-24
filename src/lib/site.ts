@@ -1,5 +1,6 @@
 export const SITE_URL = 'https://islamic-it-school.com';
-export const SITE_NAME = 'Islamic IT School';
+export const SITE_NAME = 'Khwarizmi';
+export const BRAND_MARK = '/img/khwarizmi-mark.webp';
 
 export const WA_NUMBER = '6285161231559';
 export const waLink = (text?: string) =>
@@ -21,7 +22,7 @@ export const SOCIAL = {
 };
 
 export const NAV = [
-	{ href: '/', label: 'Home' },
+	{ href: '/', label: 'Beranda' },
 	{ href: SOCIAL.school, label: 'Sekolah', external: true },
 	{ href: '/buku', label: 'Buku' },
 	{ href: '/pelatihan', label: 'Pelatihan' },

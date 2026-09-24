@@ -1,75 +1,81 @@
 <script lang="ts">
-	import ScrollTopButton from '$lib/components/ScrollTopButton.svelte';
 	import Seo from '$lib/components/Seo.svelte';
+	import { reveal } from '$lib/reveal';
 	import { waLink } from '$lib/site';
 
 	const audiences = [
-		{ title: 'Orang Tua', icon: 'icon-[bx--heart]', bg: 'from-orange-50 to-orange-100', dot: 'bg-orange-500', points: ['Memahami perkembangan anak di era digital', 'Tips mendampingi belajar online', 'Memilih sekolah yang tepat', 'Komunikasi efektif dengan guru', 'Mengembangkan karakter anak'] },
-		{ title: 'Guru & Pengajar', icon: 'icon-[bx--chalkboard]', bg: 'from-teal-50 to-teal-100', dot: 'bg-teal-500', points: ['Metode pembelajaran inovatif', 'Teknologi dalam pendidikan', 'Manajemen kelas digital', 'Penilaian berbasis kompetensi', 'Pengembangan kurikulum'] },
-		{ title: 'Penyelenggara Pendidikan', icon: 'icon-[bx--buildings]', bg: 'from-purple-50 to-purple-100', dot: 'bg-purple-500', points: ['Strategi digitalisasi sekolah', 'Manajemen lembaga pendidikan', 'Regulasi pendidikan terbaru', 'Kemitraan dengan orang tua', 'Peningkatan kualitas pendidikan'] }
+		{
+			title: 'Orang tua',
+			icon: 'icon-[lucide--heart-handshake]',
+			points: ['Memahami perkembangan anak di era digital', 'Tips mendampingi belajar online', 'Memilih sekolah yang tepat', 'Komunikasi efektif dengan guru', 'Mengembangkan karakter anak']
+		},
+		{
+			title: 'Guru & pengajar',
+			icon: 'icon-[lucide--presentation]',
+			points: ['Metode pembelajaran inovatif', 'Teknologi dalam pendidikan', 'Manajemen kelas digital', 'Penilaian berbasis kompetensi', 'Pengembangan kurikulum']
+		},
+		{
+			title: 'Penyelenggara pendidikan',
+			icon: 'icon-[lucide--building-2]',
+			points: ['Strategi digitalisasi sekolah', 'Manajemen lembaga pendidikan', 'Regulasi pendidikan terbaru', 'Kemitraan dengan orang tua', 'Peningkatan kualitas pendidikan']
+		}
 	];
 
 	const SPEAKER = 'Ust. Purwanto Abdul Ghafar';
 	const schedule = [
-		{ title: 'Pendidikan Karakter di Era Digital', text: 'Bagaimana membangun karakter anak di tengah dominasi teknologi', icon: 'icon-[bx--calendar] text-orange-600', btn: 'bg-orange-500 hover:bg-orange-600' },
-		{ title: 'Teknologi AI dalam Pembelajaran', text: 'Memanfaatkan kecerdasan buatan untuk meningkatkan kualitas belajar', icon: 'icon-[bx--laptop] text-teal-600', btn: 'bg-teal-500 hover:bg-teal-600' },
-		{ title: 'Kemitraan Orang Tua dan Sekolah', text: 'Membangun komunikasi yang efektif antara rumah dan sekolah', icon: 'icon-[bx--home-heart] text-purple-600', btn: 'bg-purple-500 hover:bg-purple-600' },
-		{ title: 'Metode Pembelajaran Abad 21', text: 'Strategi mengajar yang relevan dengan tuntutan masa depan', icon: 'icon-[bx--brain] text-pink-600', btn: 'bg-pink-500 hover:bg-pink-600' }
+		{ title: 'Pendidikan Karakter di Era Digital', text: 'Membangun karakter anak di tengah dominasi teknologi.', icon: 'icon-[lucide--compass]' },
+		{ title: 'Teknologi AI dalam Pembelajaran', text: 'Memanfaatkan kecerdasan buatan untuk meningkatkan kualitas belajar.', icon: 'icon-[lucide--bot]' },
+		{ title: 'Kemitraan Orang Tua dan Sekolah', text: 'Membangun komunikasi yang efektif antara rumah dan sekolah.', icon: 'icon-[lucide--handshake]' },
+		{ title: 'Metode Pembelajaran Abad 21', text: 'Strategi mengajar yang relevan dengan tuntutan masa depan.', icon: 'icon-[lucide--brain]' }
 	];
 
 	const reasons = [
-		{ title: 'Biaya Terjangkau', text: 'Investasi kecil untuk manfaat besar', icon: 'icon-[bx--gift] text-orange-600', bg: 'bg-orange-100' },
-		{ title: 'Sertifikat Resmi', text: 'Dapatkan sertifikat kehadiran', icon: 'icon-[bx--badge-check] text-teal-600', bg: 'bg-teal-100' },
-		{ title: 'Rekaman Tersedia', text: 'Tonton ulang kapan saja', icon: 'icon-[bx--play-circle] text-purple-600', bg: 'bg-purple-100' },
-		{ title: 'Diskusi Interaktif', text: 'Tanya jawab langsung dengan expert', icon: 'icon-[bx--support] text-pink-600', bg: 'bg-pink-100' }
+		{ title: 'Biaya terjangkau', text: 'Investasi kecil untuk manfaat besar.', icon: 'icon-[lucide--wallet]' },
+		{ title: 'Sertifikat resmi', text: 'Dapatkan sertifikat kehadiran.', icon: 'icon-[lucide--badge-check]' },
+		{ title: 'Rekaman tersedia', text: 'Tonton ulang kapan saja.', icon: 'icon-[lucide--video]' },
+		{ title: 'Diskusi interaktif', text: 'Tanya jawab langsung dengan pembicara.', icon: 'icon-[lucide--messages-square]' }
 	];
 </script>
 
 <Seo
-	title="Webinar Pendidikan Online - Sekolah Impian"
+	title="Webinar Pendidikan — Khwarizmi"
 	description="Diskusi dan seminar online untuk orang tua, guru, dan penyelenggara pendidikan."
 />
 
-<main class="bg-linear-135 from-slate-50 to-slate-200">
-	<section class="relative overflow-hidden px-4 pt-20 pb-16">
-		<div class="mx-auto max-w-6xl text-center">
-			<span class="icon-[bx--video] absolute top-20 left-10 size-10 animate-float-soft text-orange-400 opacity-20"></span>
-			<span class="icon-[bx--group] absolute top-32 right-20 size-10 animate-float-soft text-teal-400 opacity-20 [animation-delay:1s]"></span>
-			<span class="icon-[bx--book-open] absolute bottom-20 left-20 size-10 animate-float-soft text-orange-400 opacity-20 [animation-delay:2s]"></span>
-
-			<h1 class="relative mb-6 text-3xl font-extrabold md:text-5xl lg:text-6xl">
-				<span class="gradient-text">Webinar Pendidikan</span><br />
-				<span class="text-gray-800">Masa Depan Gemilang</span>
-			</h1>
-			<p class="mx-auto mb-8 max-w-3xl text-xl leading-relaxed text-gray-600 md:text-2xl">
-				Bergabunglah dengan <strong>ribuan orang tua, guru, dan penyelenggara pendidikan</strong> dalam diskusi dan seminar
-				online yang akan mengubah cara pandang Anda tentang pendidikan modern
+<main>
+	<section class="shell grid items-end gap-8 pt-12 pb-14 lg:grid-cols-[1.1fr_0.9fr] lg:pt-20">
+		<div>
+			<p class="label mb-5 flex items-center gap-2 text-signal">
+				<span class="icon-[lucide--radio] size-4"></span>Webinar
 			</p>
-			<div class="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-				<a href="#daftar" class="webinar-btn flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:shadow-xl">
-					<span class="icon-[bx--video-recording] size-6"></span> Daftar Webinar
-				</a>
-				<a href="#jadwal" class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-8 py-4 text-lg font-semibold text-gray-800 shadow-lg transition-all hover:shadow-xl">
-					<span class="icon-[bx--calendar] size-6"></span> Lihat Jadwal
+			<h1 class="text-hero font-semibold">Diskusi pendidikan, dari rumah masing-masing.</h1>
+		</div>
+		<div>
+			<p class="max-w-[44ch] text-lede text-muted">
+				Ruang belajar bersama ribuan orang tua, guru, dan penyelenggara pendidikan yang sedang memikirkan hal yang sama.
+			</p>
+			<div class="mt-7 flex flex-wrap gap-3">
+				<a href="#jadwal" class="btn btn-signal">Lihat jadwal<span class="icon-[lucide--arrow-down] size-4"></span></a>
+				<a href={waLink('Halo, saya mau daftar webinar pendidikan.')} target="_blank" rel="noopener" class="btn btn-outline">
+					<span class="icon-[lucide--message-circle] size-4"></span>Daftar via WhatsApp
 				</a>
 			</div>
 		</div>
 	</section>
 
-	<section class="bg-white px-4 py-16">
-		<div class="mx-auto max-w-6xl">
-			<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl"><span class="gradient-text">Untuk Siapa</span> Webinar Ini?</h2>
-			<p class="mb-12 text-center text-lg text-gray-600">Dirancang khusus untuk komunitas pendidikan Indonesia</p>
-			<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+	<section class="rule">
+		<div class="shell band">
+			<h2 class="max-w-xl text-title font-semibold" {@attach reveal}>Untuk siapa webinar ini?</h2>
+			<div class="mt-12 grid gap-px overflow-hidden rounded-lg bg-line md:grid-cols-3">
 				{#each audiences as a (a.title)}
-					<div class="webinar-card rounded-2xl bg-linear-to-br p-8 text-center {a.bg}">
-						<div class="mx-auto mb-6 flex size-20 items-center justify-center rounded-full {a.dot}">
-							<span class="{a.icon} size-8 text-white"></span>
-						</div>
-						<h3 class="mb-4 text-2xl font-bold text-gray-800">{a.title}</h3>
-						<ul class="space-y-2 text-left text-gray-600">
+					<div class="bg-bg p-7 lg:p-8" {@attach reveal}>
+						<span class="{a.icon} size-6 text-signal"></span>
+						<h3 class="mt-5 text-head font-semibold">{a.title}</h3>
+						<ul class="mt-4 space-y-2.5">
 							{#each a.points as p (p)}
-								<li>✓ {p}</li>
+								<li class="flex items-start gap-2.5 text-muted">
+									<span class="icon-[lucide--check] mt-1 size-4 shrink-0 text-signal"></span>{p}
+								</li>
 							{/each}
 						</ul>
 					</div>
@@ -78,99 +84,62 @@
 		</div>
 	</section>
 
-	<section id="jadwal" class="scroll-mt-24 bg-gray-50 px-4 py-16">
-		<div class="mx-auto max-w-6xl">
-			<h2 class="mb-4 text-center text-3xl font-bold md:text-4xl"><span class="gradient-text">Jadwal Webinar</span> Terbaru</h2>
-			<p class="mb-12 text-center text-lg text-gray-600">Webinar rutin setiap minggu dengan topik yang berbeda</p>
-			<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+	<section id="jadwal" class="rule scroll-mt-24">
+		<div class="shell band">
+			<div class="flex flex-wrap items-end justify-between gap-6" {@attach reveal}>
+				<h2 class="max-w-xl text-title font-semibold">Tema yang sedang disiapkan</h2>
+				<p class="text-sm text-muted">Tanggal diumumkan lewat WhatsApp dan Instagram.</p>
+			</div>
+
+			<ul class="mt-10">
 				{#each schedule as w (w.title)}
-					<article class="webinar-card flex items-start gap-4 rounded-2xl bg-white p-6 shadow-lg">
-						<div class="pulse-bg flex size-16 shrink-0 items-center justify-center rounded-full">
-							<span class="{w.icon} size-7"></span>
-						</div>
-						<div class="flex-1">
-							<h3 class="mb-2 text-xl font-bold text-gray-800">{w.title}</h3>
-							<p class="mb-3 text-gray-600">{w.text}</p>
-							<ul class="space-y-1 text-sm text-gray-500">
-								<li class="flex items-center gap-2"><span class="icon-[bx--time]"></span>Coming Soon</li>
-								<li class="flex items-center gap-2"><span class="icon-[bx--user]"></span>{SPEAKER}</li>
-								<li class="flex items-center gap-2"><span class="icon-[bx--group]"></span>-</li>
-							</ul>
-							<a
-								href={waLink(`Halo, saya mau daftar webinar "${w.title}"`)}
-								target="_blank"
-								rel="noopener"
-								class="mt-4 inline-block rounded-lg px-4 py-2 font-semibold text-white transition-colors {w.btn}"
-							>
-								Daftar Sekarang
+					<li class="rule" {@attach reveal}>
+						<div class="flex flex-wrap items-center gap-x-6 gap-y-4 py-7">
+							<span class="{w.icon} size-6 shrink-0 text-signal"></span>
+							<div class="min-w-[16rem] flex-1">
+								<h3 class="font-display text-lg font-semibold">{w.title}</h3>
+								<p class="mt-1.5 text-muted">{w.text}</p>
+								<p class="mt-2.5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted">
+									<span class="flex items-center gap-1.5"><span class="icon-[lucide--user] size-3.5"></span>{SPEAKER}</span>
+									<span class="flex items-center gap-1.5"><span class="icon-[lucide--clock] size-3.5"></span>Segera diumumkan</span>
+								</p>
+							</div>
+							<a href={waLink(`Halo, saya mau daftar webinar "${w.title}".`)} target="_blank" rel="noopener" class="btn btn-outline shrink-0">
+								Daftar<span class="icon-[lucide--arrow-right] size-4"></span>
 							</a>
 						</div>
-					</article>
+					</li>
 				{/each}
-			</div>
+			</ul>
 		</div>
 	</section>
 
-	<section class="bg-white px-4 py-16">
-		<div class="mx-auto max-w-6xl">
-			<h2 class="mb-12 text-center text-3xl font-bold md:text-4xl"><span class="gradient-text">Mengapa Memilih</span> Webinar Kami?</h2>
-			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+	<section class="rule">
+		<div class="shell band-tight">
+			<h2 class="label" {@attach reveal}>Yang Anda dapatkan</h2>
+			<ul class="mt-8 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
 				{#each reasons as r (r.title)}
-					<div class="p-6 text-center">
-						<div class="mx-auto mb-4 flex size-16 items-center justify-center rounded-full {r.bg}">
-							<span class="{r.icon} size-7"></span>
-						</div>
-						<h3 class="mb-2 font-bold text-gray-800">{r.title}</h3>
-						<p class="text-sm text-gray-600">{r.text}</p>
-					</div>
+					<li class="rule pt-5" {@attach reveal}>
+						<span class="{r.icon} size-5 text-signal"></span>
+						<h3 class="mt-3 font-display font-semibold">{r.title}</h3>
+						<p class="mt-1.5 text-sm text-muted">{r.text}</p>
+					</li>
 				{/each}
-			</div>
+			</ul>
 		</div>
 	</section>
 
-	<section id="daftar" class="scroll-mt-24 bg-linear-to-br from-orange-500 to-teal-600 px-4 py-20">
-		<div class="mx-auto max-w-4xl text-center text-white">
-			<h2 class="mb-6 text-3xl font-bold md:text-5xl">Siap Bergabung dengan Komunitas Pendidikan Terdepan?</h2>
-			<p class="mb-8 text-xl opacity-90 md:text-2xl">Daftar sekarang dan jadilah bagian dari revolusi pendidikan Indonesia!</p>
-			<a
-				href={waLink('Halo, saya mau daftar webinar pendidikan!')}
-				class="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-lg font-bold text-orange-600 shadow-lg transition-all hover:scale-105 hover:shadow-xl"
-			>
-				<span class="icon-[bxl--whatsapp] size-6"></span> Daftar via WhatsApp
-			</a>
-			<p class="mt-6 text-sm opacity-80">*Kapasitas terbatas! Daftar sekarang untuk mengamankan tempat Anda</p>
+	<section class="rule">
+		<div class="shell band">
+			<div class="rounded-xl bg-surface p-8 text-center lg:p-14" {@attach reveal}>
+				<h2 class="mx-auto max-w-2xl text-title font-semibold">Siap bergabung dengan komunitas pendidikan kami?</h2>
+				<p class="mx-auto mt-4 max-w-xl text-lede text-muted">
+					Kapasitas tiap sesi terbatas agar diskusi tetap hidup. Amankan tempat Anda lebih awal.
+				</p>
+				<a href={waLink('Halo, saya mau daftar webinar pendidikan.')} target="_blank" rel="noopener" class="btn btn-signal mx-auto mt-8">
+					<span class="icon-[lucide--message-circle] size-4"></span>Daftar via WhatsApp
+				</a>
+			</div>
 		</div>
 	</section>
 </main>
-
-<ScrollTopButton />
-
-<style>
-	.webinar-btn {
-		background: linear-gradient(135deg, #f97316 0%, #0d9488 100%);
-	}
-	.webinar-btn:hover {
-		transform: translateY(-2px);
-	}
-	.webinar-card {
-		transition:
-			transform 0.4s ease,
-			box-shadow 0.4s ease;
-	}
-	.webinar-card:hover {
-		transform: translateY(-8px);
-		box-shadow: 0 20px 40px rgb(0 0 0 / 0.1);
-	}
-	.pulse-bg {
-		animation: pulse-bg 2s infinite;
-	}
-	@keyframes pulse-bg {
-		0%,
-		100% {
-			background-color: rgb(249 115 22 / 0.1);
-		}
-		50% {
-			background-color: rgb(13 148 136 / 0.1);
-		}
-	}
-</style>

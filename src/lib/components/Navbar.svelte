@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { NAV, waLink } from '$lib/site';
+	import { BRAND_MARK, NAV, SITE_NAME, waLink } from '$lib/site';
 
 	let open = $state(false);
+	let scrolled = $state(false);
 	const isActive = (href: string) => page.url.pathname === href;
 
 	$effect(() => {
@@ -12,67 +13,64 @@
 </script>
 
 <svelte:window
+	onscroll={() => (scrolled = window.scrollY > 24)}
 	onclick={(e) => {
 		if (open && !(e.target as Element).closest('header')) open = false;
 	}}
 	onkeydown={(e) => e.key === 'Escape' && (open = false)}
 />
 
-<header class="glass sticky top-0 z-50 bg-white/95 py-3">
-	<div class="mx-auto max-w-7xl px-4 md:px-6">
-		<nav class="flex items-center justify-between" aria-label="Navigasi utama">
-			<a href="/" aria-label="Beranda Islamic IT School">
-				<img
-					class="size-[70px] object-contain"
-					src="/img/Logo-Sekolah-Impian.png"
-					alt="Sekolah Impian"
-					width="70"
-					height="70"
-				/>
+<header
+	class={[
+		'sticky top-0 z-40 transition-colors duration-300',
+		scrolled ? 'border-b border-line bg-bg/85 backdrop-blur-md' : 'border-b border-transparent'
+	]}
+>
+	<div class="shell flex items-center justify-between gap-6 py-3.5">
+		<a href="/" class="flex items-center gap-2.5" aria-label="{SITE_NAME} — beranda">
+			<img src={BRAND_MARK} alt="" width="26" height="40" class="h-9 w-auto" />
+			<span class="font-display text-lg font-semibold tracking-tight">{SITE_NAME}</span>
+		</a>
+
+		<nav class="hidden items-center gap-7 text-[0.95rem] lg:flex" aria-label="Navigasi utama">
+			{#each NAV as item (item.href)}
+				<a
+					href={item.href}
+					target={item.external ? '_blank' : undefined}
+					rel={item.external ? 'noopener' : undefined}
+					aria-current={isActive(item.href) ? 'page' : undefined}
+					class={[
+						'relative py-1 transition-colors',
+						isActive(item.href)
+							? 'text-fg after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-signal'
+							: 'text-muted hover:text-fg'
+					]}
+				>
+					{item.label}
+					{#if item.external}<span class="icon-[lucide--arrow-up-right] ml-0.5 size-3 align-middle"></span>{/if}
+				</a>
+			{/each}
+		</nav>
+
+		<div class="flex items-center gap-2">
+			<a href={waLink()} target="_blank" rel="noopener" class="btn btn-signal hidden !px-4 !py-2.5 text-sm lg:inline-flex">
+				<span class="icon-[lucide--message-circle] size-4"></span>Kontak
 			</a>
-
-			<ul class="hidden items-center gap-8 md:flex">
-				{#each NAV as item (item.href)}
-					<li>
-						<a
-							href={item.href}
-							target={item.external ? '_blank' : undefined}
-							rel={item.external ? 'noopener' : undefined}
-							aria-current={isActive(item.href) ? 'page' : undefined}
-							class={[
-								'transition-colors duration-200',
-								isActive(item.href)
-									? 'font-semibold text-orange-500'
-									: 'font-medium text-gray-600 hover:text-gray-900'
-							]}>{item.label}</a
-						>
-					</li>
-				{/each}
-			</ul>
-
-			<a
-				href={waLink()}
-				class="hidden rounded-xl bg-linear-to-r from-orange-500 to-teal-600 px-5 py-2.5 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:brightness-110 md:block"
-			>
-				Kontak
-			</a>
-
 			<button
-				class="p-2 text-gray-700 transition-colors hover:text-orange-500 md:hidden"
-				aria-label="Buka menu"
+				class="-mr-2 p-2 text-fg lg:hidden"
+				aria-label={open ? 'Tutup menu' : 'Buka menu'}
 				aria-expanded={open}
 				aria-controls="mobile-menu"
 				onclick={() => (open = !open)}
 			>
-				<span class={['size-7', open ? 'icon-[bx--x]' : 'icon-[bx--menu]']}></span>
+				<span class={['size-6', open ? 'icon-[lucide--x]' : 'icon-[lucide--menu]']}></span>
 			</button>
-		</nav>
+		</div>
+	</div>
 
-		{#if open}
-			<div
-				id="mobile-menu"
-				class="mt-4 space-y-1 rounded-lg border border-white/20 bg-white/90 px-2 pt-2 pb-3 shadow-lg backdrop-blur-lg md:hidden"
-			>
+	{#if open}
+		<div id="mobile-menu" class="border-t border-line bg-bg lg:hidden">
+			<nav class="shell flex flex-col py-2" aria-label="Navigasi utama">
 				{#each NAV as item (item.href)}
 					<a
 						href={item.href}
@@ -80,22 +78,18 @@
 						rel={item.external ? 'noopener' : undefined}
 						aria-current={isActive(item.href) ? 'page' : undefined}
 						class={[
-							'block rounded-md px-3 py-2 transition-all hover:bg-orange-50 hover:text-orange-500',
-							isActive(item.href)
-								? 'bg-orange-50 font-semibold text-orange-500'
-								: 'font-medium text-gray-600'
-						]}>{item.label}</a
+							'flex items-center justify-between border-b border-line py-3.5 text-base last:border-0',
+							isActive(item.href) ? 'text-signal' : 'text-fg'
+						]}
 					>
-				{/each}
-				<div class="mt-4 border-t border-gray-200 pt-4">
-					<a
-						href={waLink()}
-						class="flex items-center justify-center gap-2 rounded-lg bg-linear-to-r from-orange-500 to-teal-600 px-5 py-2.5 font-semibold text-white transition-all hover:from-orange-600 hover:to-teal-700"
-					>
-						<span class="icon-[bxl--whatsapp] size-5"></span>Kontak
+						{item.label}
+						<span class={['size-4 text-muted', item.external ? 'icon-[lucide--arrow-up-right]' : 'icon-[lucide--arrow-right]']}></span>
 					</a>
-				</div>
-			</div>
-		{/if}
-	</div>
+				{/each}
+				<a href={waLink()} target="_blank" rel="noopener" class="btn btn-signal my-4">
+					<span class="icon-[lucide--message-circle] size-4"></span>Hubungi kami
+				</a>
+			</nav>
+		</div>
+	{/if}
 </header>

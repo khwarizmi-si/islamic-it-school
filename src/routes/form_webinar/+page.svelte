@@ -38,13 +38,13 @@
 	const checkReferral: ReferralCheck = async (code) => {
 		const codes = await fetchJson<{ kode_referal: string }[]>(`${WEBINAR_API}/referal`);
 		return codes.some((c) => c.kode_referal === code)
-			? { valid: true, message: '✅ Kode referral valid! Diskon 10% telah diterapkan.' }
-			: { valid: false, message: '❌ Kode referral tidak valid. Silakan periksa kembali.' };
+			? { valid: true, message: 'Kode referral valid! Diskon 10% telah diterapkan.' }
+			: { valid: false, message: 'Kode referral tidak valid. Silakan periksa kembali.' };
 	};
 
 	onMount(() => {
 		if (!price) return;
-		loadSnap().catch((e: Error) => (notice = { kind: 'error', text: `❌ ${e.message}` }));
+		loadSnap().catch((e: Error) => (notice = { kind: 'error', text: ` ${e.message}` }));
 		if (refCode) referral?.run();
 	});
 
@@ -120,17 +120,17 @@
 			submitting = false;
 			const outcome = await payWithSnap(trx.token);
 			notice = {
-				success: { kind: 'success', text: '✅ Pendaftaran berhasil! Link webinar akan dikirim ke email Anda.' },
-				pending: { kind: 'warning', text: '⏳ Pembayaran pending. Silakan selesaikan pembayaran Anda.' },
-				error: { kind: 'error', text: '❌ Terjadi kesalahan saat memproses pembayaran.' },
-				close: { kind: 'warning', text: 'ℹ️ Pembayaran dibatalkan atau ditutup.' }
+				success: { kind: 'success', text: 'Pendaftaran berhasil! Link webinar akan dikirim ke email Anda.' },
+				pending: { kind: 'warning', text: 'Pembayaran pending. Silakan selesaikan pembayaran Anda.' },
+				error: { kind: 'error', text: 'Terjadi kesalahan saat memproses pembayaran.' },
+				close: { kind: 'warning', text: 'Pembayaran dibatalkan atau ditutup.' }
 			}[outcome] as { kind: NoticeKind; text: string };
 			if (outcome === 'success') {
 				const params = new URLSearchParams({ type: 'webinar', ...(trx.order_id ? { order_id: trx.order_id } : {}) });
 				setTimeout(() => goto(`/payment-success?${params}`), REDIRECT_MS);
 			}
 		} catch (err) {
-			notice = { kind: 'error', text: `❌ ${(err as Error).message}` };
+			notice = { kind: 'error', text: ` ${(err as Error).message}` };
 		} finally {
 			submitting = false;
 		}
@@ -138,117 +138,145 @@
 </script>
 
 <svelte:head>
-	<title>Form Pendaftaran Webinar | Islamic IT School</title>
+	<title>Pendaftaran Webinar | Khwarizmi</title>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<main class="flex min-h-screen items-center justify-center bg-gray-100 p-6">
-	{#if !price}
-		<div class="max-w-md rounded-lg bg-white p-8 text-center shadow-lg">
-			<h1 class="mb-4 text-xl font-bold text-red-600">Error</h1>
-			<p class="text-gray-600">Parameter webinar tidak valid. Silakan kembali ke halaman sebelumnya.</p>
-			<button class="mt-4 rounded-lg bg-blue-600 px-6 py-2 text-white hover:bg-blue-700" onclick={() => history.back()}>Kembali</button>
-		</div>
-	{:else}
-		<div class="w-full max-w-xl rounded-lg bg-white p-8 shadow-lg">
-			<h1 class="mb-6 text-2xl font-bold text-gray-800">Form Pendaftaran Webinar</h1>
+<div class="min-h-screen bg-bg text-fg">
+	<main class="shell flex min-h-screen items-center justify-center py-10">
+		{#if !price}
+			<div class="max-w-md rounded-xl border border-line bg-surface p-8 text-center">
+				<span class="icon-[lucide--circle-x] mx-auto mb-4 block size-8 text-signal"></span>
+				<h1 class="font-display text-xl font-semibold">Parameter webinar tidak valid</h1>
+				<p class="mt-2 text-muted">Silakan kembali dan pilih kelas yang ingin diikuti.</p>
+				<div class="mt-6 flex justify-center gap-3">
+					<button class="btn btn-outline" onclick={() => history.back()}>Kembali</button>
+					<a href="/pelatihan" class="btn btn-signal">Lihat pelatihan</a>
+				</div>
+			</div>
+		{:else}
+			<div class="w-full max-w-xl">
+				<a href="/pelatihan" class="mb-6 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg">
+					<span class="icon-[lucide--arrow-left] size-4"></span>Kembali ke pelatihan
+				</a>
 
-			<section class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-700">
-				<h2 class="mb-2 text-lg font-semibold text-blue-800">Detail Webinar</h2>
-				<p><strong>Kategori:</strong> {webinarType}</p>
-				<p><strong>Tema:</strong> {webinarTitle}</p>
-				<p><strong>Tanggal:</strong> {webinarDate}</p>
-				<p><strong>Waktu:</strong> {webinarTime}</p>
-				<p><strong>Harga:</strong> Rp {rp(price)}</p>
-				<p><strong>Kode Referral:</strong> {refChecked || '-'}</p>
-				{#if refValid}
-					<p class="mt-2 rounded bg-green-100 p-2 text-green-700">✅ Diskon 10% dari kode referral telah diterapkan!</p>
-				{:else if refState === 'invalid'}
-					<p class="mt-2 rounded bg-red-100 p-2 text-red-700">❌ Kode referral tidak valid atau tidak ditemukan</p>
-				{/if}
-				<p class={['mt-2 text-lg font-bold', refValid ? 'text-green-600' : 'text-blue-800']}>Total Bayar: Rp {rp(total)}</p>
-			</section>
+				<div class="rounded-xl border border-line bg-surface p-7 lg:p-9">
+					<h1 class="font-display text-2xl font-semibold">Form pendaftaran</h1>
 
-			<form class="space-y-5" onsubmit={submit}>
-				<div>
-					<ReferralInput
-						bind:this={referral}
-						bind:code={refCode}
-						bind:checkedCode={refChecked}
-						bind:state={refState}
-						bind:message={refMessage}
-						check={checkReferral}
-						placeholder="Masukkan kode referral untuk diskon 10%"
-					/>
-					<p class="mt-2 text-xs text-green-600">💡 Tip: Dapatkan diskon 10% dengan kode referral yang valid!</p>
-					{#if refMessage}
-						<Notice kind={refState === 'valid' ? 'success' : refState === 'invalid' ? 'error' : 'warning'} text={refMessage} />
+					<section class="mt-6 rounded-lg bg-surface-2 p-5">
+						<h2 class="label">Detail kelas</h2>
+						<dl class="mt-4 space-y-2.5 text-sm">
+							<div class="flex justify-between gap-4"><dt class="text-muted">Kategori</dt><dd class="text-right font-medium">{webinarType}</dd></div>
+							<div class="flex justify-between gap-4"><dt class="text-muted">Tema</dt><dd class="text-right font-medium">{webinarTitle}</dd></div>
+							<div class="flex justify-between gap-4"><dt class="text-muted">Tanggal</dt><dd>{webinarDate}</dd></div>
+							<div class="flex justify-between gap-4"><dt class="text-muted">Waktu</dt><dd>{webinarTime}</dd></div>
+							<div class="flex justify-between gap-4"><dt class="text-muted">Harga</dt><dd>Rp {rp(price)}</dd></div>
+							<div class="flex justify-between gap-4"><dt class="text-muted">Kode referral</dt><dd>{refChecked || '—'}</dd></div>
+						</dl>
+
+						{#if refValid}
+							<p class="mt-4 flex items-center gap-2 text-sm text-emerald-700">
+								<span class="icon-[lucide--badge-percent] size-4"></span>Diskon 10% dari kode referral diterapkan.
+							</p>
+						{:else if refState === 'invalid'}
+							<p class="mt-4 flex items-center gap-2 text-sm text-red-700">
+								<span class="icon-[lucide--circle-x] size-4"></span>Kode referral tidak valid atau tidak ditemukan.
+							</p>
+						{/if}
+
+						<div class="rule mt-4 flex items-baseline justify-between gap-4 pt-4">
+							<span class="text-sm text-muted">Total bayar</span>
+							<span class="font-display text-2xl font-semibold {refValid ? 'text-emerald-700' : ''}">Rp {rp(total)}</span>
+						</div>
+					</section>
+
+					<form class="mt-7 space-y-5" onsubmit={submit}>
+						<div>
+							<ReferralInput
+								bind:this={referral}
+								bind:code={refCode}
+								bind:checkedCode={refChecked}
+								bind:state={refState}
+								bind:message={refMessage}
+								check={checkReferral}
+								placeholder="Kode referral untuk diskon 10%"
+							/>
+							{#if refMessage}
+								<Notice kind={refState === 'valid' ? 'success' : refState === 'invalid' ? 'error' : 'warning'} text={refMessage} />
+							{/if}
+						</div>
+
+						<div class="grid gap-5 sm:grid-cols-2">
+							<label class="block">
+								<span class="mb-2 block text-sm font-semibold">Nama lengkap *</span>
+								<input name="nama_peserta" required maxlength="100" placeholder="Nama lengkap" autocomplete="name" class="input-field" />
+							</label>
+							<label class="block">
+								<span class="mb-2 block text-sm font-semibold">Email *</span>
+								<input name="email_peserta" type="email" required maxlength="100" placeholder="nama@email.com" autocomplete="email" class="input-field" />
+							</label>
+							<label class="block">
+								<span class="mb-2 block text-sm font-semibold">Nomor HP/WhatsApp *</span>
+								<input
+									name="nomor_peserta"
+									type="tel"
+									required
+									pattern={'[0-9+\\-\\s]{10,15}'}
+									title="10-15 karakter: angka, +, -, dan spasi"
+									placeholder="08123456789"
+									autocomplete="tel"
+									class="input-field"
+								/>
+							</label>
+							<label class="block">
+								<span class="mb-2 block text-sm font-semibold">Domisili *</span>
+								<input name="domisili" required maxlength="100" placeholder="Kota/kabupaten" autocomplete="address-level2" class="input-field" />
+							</label>
+						</div>
+
+						<label class="block">
+							<span class="mb-2 block text-sm font-semibold">Instansi (opsional)</span>
+							<input name="instansi" maxlength="150" placeholder="Nama sekolah atau lembaga" autocomplete="organization" class="input-field" />
+						</label>
+
+						<label class="block">
+							<span class="mb-2 block text-sm font-semibold">Pertanyaan untuk pembicara (opsional)</span>
+							<textarea name="pertanyaan" rows="3" maxlength="1000" placeholder="Tulis pertanyaan Anda" class="input-field resize-none"></textarea>
+						</label>
+
+						<div class="rounded-lg bg-surface-2 p-5">
+							<h3 class="flex items-center gap-2 text-sm font-semibold">
+								<span class="icon-[lucide--credit-card] size-4 text-signal"></span>Metode pembayaran
+							</h3>
+							<p class="mt-2 text-sm text-muted">Setelah menekan daftar, Anda dapat memilih:</p>
+							<ul class="mt-3 grid gap-1.5 text-sm text-muted sm:grid-cols-2">
+								{#each ['Kartu kredit/debit', 'Transfer bank (BNI, BRI, Mandiri)', 'E-wallet (GoPay, OVO, Dana)', 'QRIS & virtual account'] as method (method)}
+									<li class="flex items-center gap-2">
+										<span class="icon-[lucide--check] size-3.5 shrink-0 text-signal"></span>{method}
+									</li>
+								{/each}
+							</ul>
+						</div>
+
+						<button type="submit" disabled={submitting} class="btn btn-signal w-full disabled:opacity-60">
+							{#if submitting}
+								<span class="icon-[lucide--loader-circle] size-4 animate-spin"></span>Memproses...
+							{:else}
+								Daftar sekarang<span class="icon-[lucide--arrow-right] size-4"></span>
+							{/if}
+						</button>
+					</form>
+
+					{#if notice}
+						<Notice kind={notice.kind} text={notice.text} />
 					{/if}
 				</div>
 
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Nama Lengkap *</span>
-					<input name="nama_peserta" required maxlength="100" placeholder="Masukkan nama lengkap" autocomplete="name" class="input-field" />
-				</label>
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Email *</span>
-					<input name="email_peserta" type="email" required maxlength="100" placeholder="contoh@email.com" autocomplete="email" class="input-field" />
-				</label>
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Nomor HP/WhatsApp *</span>
-					<input
-						name="nomor_peserta"
-						type="tel"
-						required
-						pattern={'[0-9+\\-\\s]{10,15}'}
-						title="10-15 karakter: angka, +, -, dan spasi"
-						placeholder="Contoh: 08123456789"
-						autocomplete="tel"
-						class="input-field"
-					/>
-				</label>
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Domisili (Kota/Kabupaten) *</span>
-					<input name="domisili" required maxlength="100" placeholder="Contoh: Jakarta Selatan, Bandung, Surabaya" autocomplete="address-level2" class="input-field" />
-				</label>
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Instansi/Perusahaan (Opsional)</span>
-					<input name="instansi" maxlength="150" placeholder="Nama instansi/perusahaan" autocomplete="organization" class="input-field" />
-				</label>
-				<label class="block">
-					<span class="mb-2 block text-sm font-semibold text-gray-700">Pertanyaan (Opsional)</span>
-					<textarea name="pertanyaan" rows="3" maxlength="1000" placeholder="Apakah ada pertanyaan khusus untuk pembicara?" class="input-field resize-none"></textarea>
-				</label>
-
-				<div class="rounded-lg border border-green-200 bg-green-50 p-4">
-					<h3 class="mb-2 text-sm font-semibold text-green-800">💳 Metode Pembayaran</h3>
-					<p class="text-sm text-green-700">Setelah klik "Daftar Sekarang", Anda akan dapat memilih metode pembayaran:</p>
-					<ul class="mt-2 space-y-1 text-xs text-green-600">
-						<li>• Kartu Kredit/Debit</li>
-						<li>• Bank Transfer (BNI, BRI, Mandiri)</li>
-						<li>• E-Wallet (GoPay, OVO, Dana)</li>
-						<li>• QRIS & Virtual Account</li>
-					</ul>
+				<div class="mt-5 space-y-1 text-center text-xs text-muted">
+					<p>Dengan mendaftar, Anda menyetujui syarat dan ketentuan yang berlaku.</p>
+					<p>Link webinar dikirim via email setelah pembayaran berhasil.</p>
 				</div>
-
-				<button
-					type="submit"
-					disabled={submitting}
-					class="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
-				>
-					{submitting ? 'Memproses...' : 'Daftar Sekarang'}
-				</button>
-			</form>
-
-			{#if notice}
-				<Notice kind={notice.kind} text={notice.text} />
-			{/if}
-
-			<div class="mt-6 space-y-1 text-center text-xs text-gray-500">
-				<p>Dengan melakukan pendaftaran, Anda menyetujui syarat dan ketentuan yang berlaku.</p>
-				<p>Pembayaran diproses dengan aman melalui Midtrans</p>
-				<p>Link webinar akan dikirim via email setelah pembayaran berhasil</p>
 			</div>
-		</div>
-	{/if}
-</main>
+		{/if}
+	</main>
+</div>

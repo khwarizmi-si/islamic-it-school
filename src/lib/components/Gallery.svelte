@@ -9,43 +9,47 @@
 	const step = (d: number) => (current = (current + d + images.length) % images.length);
 </script>
 
-<div>
+<figure class="m-0 min-w-0">
 	<button
-		class="mb-4 flex aspect-3/4 w-full items-center justify-center overflow-hidden rounded-2xl bg-gray-100 shadow-xl"
+		class="group relative block w-full overflow-hidden rounded-sm bg-surface"
 		aria-label="Lihat gambar layar penuh"
 		onclick={() => dialog?.showModal()}
 	>
-		<img src={images[current]} alt="{alt} – gambar {current + 1}" class="h-full w-auto object-contain" loading="lazy" />
+		<img
+			src={images[current]}
+			alt="{alt} — gambar {current + 1}"
+			class="aspect-3/4 w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+			loading="lazy"
+		/>
+		<span
+			class="pointer-events-none absolute right-3 bottom-3 flex items-center gap-1.5 rounded-full bg-bg/80 px-3 py-1.5 text-xs backdrop-blur-sm"
+		>
+			<span class="icon-[lucide--maximize-2] size-3.5"></span>Perbesar
+		</span>
 	</button>
 
-	<div class="-mx-1 flex gap-3 overflow-x-auto px-1 py-2">
+	<ul class="mt-3 flex min-w-0 gap-2.5 overflow-x-auto pb-1">
 		{#each images as src, i (src)}
-			<button
-				class={[
-					'size-16 shrink-0 overflow-hidden rounded-lg border-2 transition-all hover:border-emerald-400 active:scale-95',
-					i === current ? 'scale-105 border-emerald-400' : 'border-transparent'
-				]}
-				aria-label="Gambar {i + 1}"
-				aria-pressed={i === current}
-				onclick={() => (current = i)}
-			>
-				<img {src} alt="" class="size-full object-cover" loading="lazy" />
-			</button>
+			<li>
+				<button
+					class={[
+						'size-16 overflow-hidden rounded-sm border transition-all',
+						i === current ? 'border-signal opacity-100' : 'border-line opacity-60 hover:opacity-100'
+					]}
+					aria-label="Gambar {i + 1}"
+					aria-pressed={i === current}
+					onclick={() => (current = i)}
+				>
+					<img {src} alt="" class="size-full object-cover" loading="lazy" />
+				</button>
+			</li>
 		{/each}
-	</div>
-
-	<button
-		class="mx-auto mt-3 flex items-center gap-1 text-sm font-medium text-emerald-600 md:hidden"
-		onclick={() => dialog?.showModal()}
-	>
-		<span class="icon-[bx--fullscreen] size-4"></span>
-		Lihat Fullscreen
-	</button>
-</div>
+	</ul>
+</figure>
 
 <dialog
 	bind:this={dialog}
-	class="m-0 size-full max-h-none max-w-none bg-black/90 p-4 backdrop:bg-black/60"
+	class="m-0 size-full max-h-none max-w-none bg-black/92 p-4 text-white backdrop:bg-black/70"
 	aria-label="Galeri {alt}"
 	onclick={(e) => e.target === dialog && dialog.close()}
 	onkeydown={(e) => {
@@ -58,40 +62,28 @@
 		if (Math.abs(dx) > SWIPE_PX) step(Math.sign(dx));
 	}}
 >
-	<button
-		class="absolute top-4 right-4 z-10 text-white transition-colors hover:text-emerald-400"
-		aria-label="Tutup"
-		onclick={() => dialog?.close()}
-	>
-		<span class="icon-[bx--x] size-10"></span>
+	<button class="absolute top-4 right-4 z-10 p-2 transition-opacity hover:opacity-70" aria-label="Tutup" onclick={() => dialog?.close()}>
+		<span class="icon-[lucide--x] size-7"></span>
 	</button>
 
 	<div class="flex size-full items-center justify-center">
-		<img src={images[current]} alt="{alt} – gambar {current + 1}" class="max-h-[85vh] max-w-full object-contain" />
+		<img src={images[current]} alt="{alt} — gambar {current + 1}" class="max-h-[85vh] max-w-full object-contain" />
 	</div>
 
 	<button
-		class="absolute top-1/2 left-4 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white transition-colors hover:bg-white/30"
+		class="absolute top-1/2 left-3 -translate-y-1/2 rounded-full border border-white/25 p-3 transition-colors hover:bg-white/15"
 		aria-label="Sebelumnya"
 		onclick={() => step(-1)}
 	>
-		<span class="icon-[bx--chevron-left] size-8"></span>
+		<span class="icon-[lucide--chevron-left] size-6"></span>
 	</button>
 	<button
-		class="absolute top-1/2 right-4 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white transition-colors hover:bg-white/30"
+		class="absolute top-1/2 right-3 -translate-y-1/2 rounded-full border border-white/25 p-3 transition-colors hover:bg-white/15"
 		aria-label="Berikutnya"
 		onclick={() => step(1)}
 	>
-		<span class="icon-[bx--chevron-right] size-8"></span>
+		<span class="icon-[lucide--chevron-right] size-6"></span>
 	</button>
 
-	<div class="absolute inset-x-0 bottom-8 flex justify-center gap-2">
-		{#each images as src, i (src)}
-			<button
-				class={['size-3 rounded-full transition-all', i === current ? 'bg-emerald-500' : 'bg-gray-300']}
-				aria-label="Gambar {i + 1}"
-				onclick={() => (current = i)}
-			></button>
-		{/each}
-	</div>
+	<p class="absolute inset-x-0 bottom-6 text-center text-sm text-white/70">{current + 1} / {images.length}</p>
 </dialog>
