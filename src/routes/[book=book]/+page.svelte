@@ -67,10 +67,17 @@
 <div class="min-h-screen bg-bg text-fg">
 	<header class="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-md">
 		<div class="shell flex items-center justify-between gap-4 py-3.5">
-			<a href="/" class="flex items-center gap-2.5" aria-label="Beranda {SITE_NAME}">
-				<img src={BRAND_MARK} alt="" width="22" height="34" class="h-8 w-auto" />
-				<span class="font-display leading-tight font-semibold">{book.short}</span>
-			</a>
+			<div class="flex min-w-0 items-center gap-3">
+				<a
+					href="/"
+					class="flex shrink-0 items-center gap-2 text-muted transition-colors hover:text-fg"
+					aria-label="Kembali ke beranda {SITE_NAME}"
+				>
+					<span class="icon-[lucide--arrow-left] size-4"></span>
+					<img src={BRAND_MARK} alt="" width="22" height="34" class="h-8 w-auto" />
+				</a>
+				<span class="truncate font-display leading-tight font-semibold">{book.short}</span>
+			</div>
 
 			<nav class="hidden items-center gap-7 text-sm md:flex" aria-label="Bagian halaman">
 				{#each sections as s (s.id)}
