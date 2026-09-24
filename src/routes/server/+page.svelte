@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Seo from '$lib/components/Seo.svelte';
-	import { waLink } from '$lib/site';
+	import { EMAIL, WA_DISPLAY, waLink } from '$lib/site';
 
 	// ponytail: the progress is a friendly animation, not real telemetry — wire it to a status API if one appears.
 	const TICK_MS = 5000;
@@ -129,13 +129,13 @@
 				<p class="mb-3 text-sm text-muted">Untuk keadaan darurat teknis selama pemeliharaan</p>
 				<ul class="space-y-2 text-sm text-signal">
 					<li>
-						<a href="mailto:sekolahimpianstudio@gmail.com" class="flex items-center gap-2 hover:underline">
-							<span class="icon-[lucide--mail]"></span> sekolahimpianstudio@gmail.com
+						<a href="mailto:{EMAIL}" class="flex items-center gap-2 hover:underline">
+							<span class="icon-[lucide--mail]"></span>{EMAIL}
 						</a>
 					</li>
 					<li>
 						<a href={waLink()} target="_blank" rel="noopener" class="flex items-center gap-2 hover:underline">
-							<span class="icon-[lucide--phone]"></span> +62 851 6123 1559
+							<span class="icon-[lucide--phone]"></span>{WA_DISPLAY}
 						</a>
 					</li>
 					<li>

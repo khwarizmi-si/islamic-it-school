@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Seo from '$lib/components/Seo.svelte';
 	import { reveal } from '$lib/reveal';
-	import { SOCIAL, waLink } from '$lib/site';
+	import { SOCIAL, WA_DISPLAY, waLink } from '$lib/site';
 
 	const channels = [
 		{
 			name: 'Instagram',
-			handle: '@sekolahimpianofficial',
+			handle: SOCIAL.instagramHandle,
 			blurb: 'Foto dan video pendek dari kelas, buku, dan kegiatan harian.',
 			icon: 'icon-[lucide--instagram]',
 			stats: [
@@ -31,7 +31,7 @@
 		},
 		{
 			name: 'WhatsApp',
-			handle: '+62 851-6123-1559',
+			handle: WA_DISPLAY,
 			blurb: 'Tanya langsung soal buku, pelatihan, atau pendaftaran kursus.',
 			icon: 'icon-[lucide--message-circle]',
 			stats: [

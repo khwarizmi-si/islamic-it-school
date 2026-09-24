@@ -2,7 +2,9 @@ export const SITE_URL = 'https://islamic-it-school.com';
 export const SITE_NAME = 'Khwarizmi';
 export const BRAND_MARK = '/img/khwarizmi-mark.webp';
 
-export const WA_NUMBER = '6285161231559';
+export const WA_NUMBER = '6285770661868';
+export const WA_DISPLAY = '+62 857-7066-1868';
+export const EMAIL = 'info@khwarizmi.co.id';
 export const waLink = (text?: string) =>
 	`https://wa.me/${WA_NUMBER}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
 
@@ -16,7 +18,8 @@ export const MEDIA_BASE = '';
 export const mediaUrl = (path: string) => `${MEDIA_BASE}/${encodeURI(path)}`;
 
 export const SOCIAL = {
-	instagram: 'https://www.instagram.com/sekolahimpianofficial',
+	instagram: 'https://www.instagram.com/alkhwarizmi.id/',
+	instagramHandle: '@alkhwarizmi.id',
 	youtube: 'https://www.youtube.com/@sekolahimpianku',
 	school: 'https://sekolahimpian.com/'
 };
