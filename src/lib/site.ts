@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://islamic-it-school.com';
+export const SITE_URL = 'https://itmi.khwarizmi.co.id';
 export const SITE_NAME = 'Khwarizmi';
 export const BRAND_MARK = '/img/khwarizmi-mark.webp';
 
@@ -21,11 +21,13 @@ export const SOCIAL = {
 	instagram: 'https://www.instagram.com/alkhwarizmi.id/',
 	instagramHandle: '@alkhwarizmi.id',
 	youtube: 'https://www.youtube.com/@sekolahimpianku',
-	school: 'https://sekolahimpian.com/'
+	school: 'https://sekolahimpian.com/',
+	company: 'https://khwarizmi.co.id'
 };
 
 export const NAV = [
 	{ href: '/', label: 'Beranda' },
+	{ href: SOCIAL.company, label: 'Situs Utama', external: true },
 	{ href: SOCIAL.school, label: 'Sekolah', external: true },
 	{ href: '/buku', label: 'Buku' },
 	{ href: '/pelatihan', label: 'Pelatihan' },

@@ -4,7 +4,7 @@
 	import { bookPalette } from '$lib/bookTheme';
 	import { referral } from '$lib/referral.svelte';
 	import { reveal } from '$lib/reveal';
-	import { BRAND_MARK, rupiah, SITE_NAME } from '$lib/site';
+	import { BRAND_MARK, rupiah, SITE_NAME, SOCIAL } from '$lib/site';
 
 	let { data } = $props();
 	const book = $derived(data.book);
@@ -312,10 +312,20 @@
 
 	<footer class="rule">
 		<div class="shell flex flex-wrap items-center justify-between gap-4 py-8 text-sm text-muted">
-			<a href="/" class="flex items-center gap-2.5 text-fg">
-				<img src={BRAND_MARK} alt="" width="20" height="30" class="h-7 w-auto" />
-				<span class="font-display font-semibold">{SITE_NAME}</span>
-			</a>
+			<div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+				<a href="/" class="flex items-center gap-2.5 text-fg">
+					<img src={BRAND_MARK} alt="" width="20" height="30" class="h-7 w-auto" />
+					<span class="font-display font-semibold">{SITE_NAME}</span>
+				</a>
+				<a
+					href={SOCIAL.company}
+					target="_blank"
+					rel="noopener"
+					class="flex items-center gap-1.5 transition-colors hover:text-fg"
+				>
+					khwarizmi.co.id<span class="icon-[lucide--arrow-up-right] size-3.5"></span>
+				</a>
+			</div>
 			<p>© {new Date().getFullYear()} {SITE_NAME}. Seluruh hak cipta dilindungi.</p>
 		</div>
 	</footer>
