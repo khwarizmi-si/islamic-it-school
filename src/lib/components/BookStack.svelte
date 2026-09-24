@@ -2,16 +2,16 @@
 	import { books } from '$lib/books';
 	import { markCover } from '$lib/coverMorph';
 
-	const REST = books.length - 1;
-	let active = $state(REST);
+	// null = nobody is looking: the fan sits flat and evenly lit.
+	let active = $state<number | null>(null);
 	const mid = (books.length - 1) / 2;
 
 	/** How far a cover sits from the one being looked at — drives the "make room" shift. */
-	const shift = (i: number) => Math.sign(i - active);
+	const shift = (i: number) => (active === null ? 0 : Math.sign(i - active));
 </script>
 
 <div class="stack-wrap">
-	<ul class="stack" onpointerleave={() => (active = REST)}>
+	<ul class="stack" onpointerleave={() => (active = null)}>
 		{#each books as book, i (book.slug)}
 			<li style:--i={i - mid} style:--shift={shift(i)} style:--z={i} class:is-active={active === i}>
 				<a
@@ -19,7 +19,7 @@
 					aria-label="{book.name} — lihat detail"
 					onpointerenter={() => (active = i)}
 					onfocus={() => (active = i)}
-					onblur={() => (active = REST)}
+					onblur={() => (active = null)}
 					onclick={markCover}
 				>
 					<img
@@ -36,7 +36,7 @@
 
 	<p class="caption">
 		<span class="icon-[lucide--book-open] size-3.5"></span>
-		{books[active].name}
+		{active === null ? `${books.length} judul Seri Teknologi Islami` : books[active].name}
 	</p>
 </div>
 
@@ -70,6 +70,9 @@
 			transform 0.65s var(--ease-out-quart),
 			filter 0.45s var(--ease-out-quart),
 			opacity 0.45s var(--ease-out-quart);
+	}
+	/* Only once a cover is singled out do the others step back. */
+	.stack:has(.is-active) li:not(.is-active) {
 		filter: brightness(0.62) saturate(0.85);
 	}
 	.stack li a {
