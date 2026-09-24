@@ -16,8 +16,7 @@
 				<span class="font-display text-xl font-semibold tracking-tight">{SITE_NAME}</span>
 			</a>
 			<p class="max-w-sm leading-relaxed text-muted">
-				Penerbit Buku Seri Teknologi Islami dan penyelenggara pelatihan serta kursus teknologi untuk guru, orang tua,
-				dan anak.
+				Buku Seri Teknologi Islami serta pelatihan dan kursus teknologi untuk guru, orang tua, dan anak.
 			</p>
 		</div>
 
