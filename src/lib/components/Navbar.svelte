@@ -36,8 +36,6 @@
 			{#each NAV as item (item.href)}
 				<a
 					href={item.href}
-					target={item.external ? '_blank' : undefined}
-					rel={item.external ? 'noopener' : undefined}
 					aria-current={isActive(item.href) ? 'page' : undefined}
 					class={[
 						'relative py-1 transition-colors',
@@ -47,7 +45,6 @@
 					]}
 				>
 					{item.label}
-					{#if item.external}<span class="icon-[lucide--arrow-up-right] ml-0.5 size-3 align-middle"></span>{/if}
 				</a>
 			{/each}
 		</nav>
@@ -74,8 +71,6 @@
 				{#each NAV as item (item.href)}
 					<a
 						href={item.href}
-						target={item.external ? '_blank' : undefined}
-						rel={item.external ? 'noopener' : undefined}
 						aria-current={isActive(item.href) ? 'page' : undefined}
 						class={[
 							'flex items-center justify-between border-b border-line py-3.5 text-base last:border-0',
@@ -83,7 +78,7 @@
 						]}
 					>
 						{item.label}
-						<span class={['size-4 text-muted', item.external ? 'icon-[lucide--arrow-up-right]' : 'icon-[lucide--arrow-right]']}></span>
+						<span class="icon-[lucide--arrow-right] size-4 text-muted"></span>
 					</a>
 				{/each}
 				<a href={waLink()} target="_blank" rel="noopener" class="btn btn-signal my-4">

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BRAND_MARK, NAV, SITE_NAME, SOCIAL, waLink } from '$lib/site';
+	import { BRAND_MARK, NAV, OUTBOUND, SITE_NAME, SOCIAL, waLink } from '$lib/site';
 
 	const channels = [
 		{ href: SOCIAL.instagram, label: 'Instagram', icon: 'icon-[lucide--instagram]' },
@@ -24,14 +24,19 @@
 		<nav aria-label="Navigasi footer">
 			<h2 class="label mb-4">Jelajahi</h2>
 			<ul class="space-y-2.5">
-				{#each NAV.slice(1) as item (item.href)}
+				{#each NAV as item (item.href)}
+					<li><a href={item.href} class="text-muted transition-colors hover:text-fg">{item.label}</a></li>
+				{/each}
+				{#each OUTBOUND as item (item.href)}
 					<li>
 						<a
 							href={item.href}
-							target={item.external ? '_blank' : undefined}
-							rel={item.external ? 'noopener' : undefined}
-							class="text-muted transition-colors hover:text-fg">{item.label}</a
+							target="_blank"
+							rel="noopener"
+							class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-fg"
 						>
+							{item.label}<span class="icon-[lucide--arrow-up-right] size-3.5"></span>
+						</a>
 					</li>
 				{/each}
 			</ul>

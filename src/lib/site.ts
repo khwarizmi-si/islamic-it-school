@@ -25,15 +25,19 @@ export const SOCIAL = {
 	company: 'https://khwarizmi.co.id'
 };
 
+// Header nav: only what this site itself offers. The logo already goes home, and the two
+// outbound sites live in the footer so the primary nav doesn't send visitors away.
 export const NAV = [
-	{ href: '/', label: 'Beranda' },
-	{ href: SOCIAL.company, label: 'Situs Utama', external: true },
-	{ href: SOCIAL.school, label: 'Sekolah', external: true },
 	{ href: '/buku', label: 'Buku' },
 	{ href: '/pelatihan', label: 'Pelatihan' },
 	{ href: '/kursus', label: 'Kursus' },
 	{ href: '/webinar', label: 'Webinar' },
 	{ href: '/channel', label: 'Channel' }
+];
+
+export const OUTBOUND = [
+	{ href: SOCIAL.company, label: 'khwarizmi.co.id' },
+	{ href: SOCIAL.school, label: 'Sekolah Impian' }
 ];
 
 export const rupiah = (n: number) => `Rp${n.toLocaleString('id-ID')}`;
