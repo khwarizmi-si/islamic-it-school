@@ -119,7 +119,7 @@
 		<div class="shell relative grid items-center gap-12 pt-10 pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:pt-16 lg:pb-24">
 			<div>
 				<p class="label mb-6 flex items-center gap-2 text-signal">
-					<span class="icon-[lucide--book-marked] size-4"></span>Penerbit Seri Teknologi Islami
+					<span class="icon-[lucide--book-marked] size-4"></span>Seri Teknologi Islami
 				</p>
 				<h1 class="text-hero font-semibold">Tujuh buku yang mengubah cara anak bertemu teknologi.</h1>
 				<p class="mt-6 max-w-[46ch] text-lede text-muted">
