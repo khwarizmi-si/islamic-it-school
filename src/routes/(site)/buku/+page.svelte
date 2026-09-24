@@ -1,8 +1,21 @@
 <script lang="ts">
 	import Seo from '$lib/components/Seo.svelte';
 	import { books } from '$lib/books';
+	import { openBook } from '$lib/bookOpen';
 	import { reveal } from '$lib/reveal';
 	import { rupiah, waLink } from '$lib/site';
+
+	let opening = $state(false);
+
+	/** Same book-opening transition as the home page stack. */
+	async function open(e: MouseEvent, href: string) {
+		if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+		e.preventDefault();
+		if (opening) return;
+		opening = true;
+		await openBook((e.currentTarget as HTMLElement).querySelector('img') as HTMLImageElement, href);
+		opening = false;
+	}
 
 	const plans = [
 		{
@@ -56,7 +69,7 @@
 			<ul class="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
 				{#each books as book, i (book.slug)}
 					<li {@attach reveal} style:transition-delay="{Math.min(i, 5) * 60}ms">
-						<a href="/{book.slug}" class="group block">
+						<a href="/{book.slug}" class="group block" onclick={(e) => open(e, `/${book.slug}`)}>
 							<div class="overflow-hidden rounded-sm bg-surface shadow-[0_0.6rem_1.8rem_oklch(0.3_0.05_300/0.16)]">
 								<img
 									src="{book.img}/cover.jpg"
