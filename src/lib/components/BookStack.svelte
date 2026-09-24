@@ -1,29 +1,17 @@
 <script lang="ts">
 	import { books } from '$lib/books';
-	import { openBook } from '$lib/bookOpen';
+	import { markCover } from '$lib/coverMorph';
 
-	let active = $state(books.length - 1);
-	let opening = $state(false);
+	const REST = books.length - 1;
+	let active = $state(REST);
 	const mid = (books.length - 1) / 2;
 
 	/** How far a cover sits from the one being looked at — drives the "make room" shift. */
 	const shift = (i: number) => Math.sign(i - active);
-
-	async function open(e: MouseEvent, i: number, href: string) {
-		// let modified clicks (new tab, etc.) behave normally
-		if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-		e.preventDefault();
-		if (opening) return;
-		opening = true;
-		const cover = (e.currentTarget as HTMLElement).querySelector('img') as HTMLImageElement;
-		active = i;
-		await openBook(cover, href);
-		opening = false;
-	}
 </script>
 
 <div class="stack-wrap">
-	<ul class="stack" class:is-opening={opening}>
+	<ul class="stack" onpointerleave={() => (active = REST)}>
 		{#each books as book, i (book.slug)}
 			<li style:--i={i - mid} style:--shift={shift(i)} style:--z={i} class:is-active={active === i}>
 				<a
@@ -31,7 +19,8 @@
 					aria-label="{book.name} — lihat detail"
 					onpointerenter={() => (active = i)}
 					onfocus={() => (active = i)}
-					onclick={(e) => open(e, i, `/${book.slug}`)}
+					onblur={() => (active = REST)}
+					onclick={markCover}
 				>
 					<img
 						src="{book.img}/cover.jpg"
@@ -111,15 +100,6 @@
 		box-shadow:
 			0 1rem 1.5rem oklch(0.05 0.02 300 / 0.5),
 			0 3.5rem 5.5rem oklch(0.05 0.02 300 / 0.7);
-	}
-
-	/* While a cover opens, the rest of the stack gets out of the way. */
-	.stack.is-opening li:not(.is-active) {
-		opacity: 0;
-		transform: translateX(calc(var(--shift) * 6rem)) scale(0.9);
-	}
-	.stack.is-opening li.is-active a {
-		opacity: 0;
 	}
 
 	.caption {

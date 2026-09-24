@@ -145,6 +145,7 @@
 						src={book.hero.mockup}
 						alt="Sampul {book.name}"
 						class="w-full animate-float-soft rounded-sm shadow-[0_2rem_5rem_oklch(0.05_0.02_300/0.65)]"
+						style="view-transition-name: book-cover"
 						fetchpriority="high"
 					/>
 				</figure>
