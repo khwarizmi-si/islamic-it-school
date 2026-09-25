@@ -26,7 +26,7 @@ export const books = [
 			introHtml: "<p><span class=\"font-semibold\">Islamic Technology Mindset Installation</span> adalah metode revolusioner yang memiliki dua fungsi utama:</p><ul><li>Sebagai metode preventif &amp; kuratif untuk mudhorot teknologi</li><li>Sebagai metode belajar IT yang efektif dan lebih cepat</li></ul>",
 			warning: "PERINGATAN: Buku ini akan mengubah cara Anda memandang teknologi!",
 			cta: "BUKTIKAN SEKARANG!",
-			mockup: "/img/ITMI/mockup-itmi.png"
+			mockup: "/img/ITMI/cover.jpg"
 		},
 		problems: {
 			title: "MASALAH TEKNOLOGI YANG MENGANCAM GENERASI",
@@ -120,7 +120,7 @@ export const books = [
 			introHtml: "<p><span class=\"font-semibold\">Liquid Curriculum</span> membongkar kesalahan fatal sistem pendidikan modern dan mengungkap formula rahasia mencetak generasi <span class=\"font-bold\">berakhlak mulia, bermental kuat, dan produktif</span> dalam waktu singkat!</p>",
 			warning: "PERINGATAN: Buku ini akan mengubah paradigma Anda tentang pendidikan!",
 			cta: "BUKTIKAN SEKARANG!",
-			mockup: "/img/LC/mockup-lc.png"
+			mockup: "/img/LC/cover.jpg"
 		},
 		problems: {
 			title: "MASALAH BESAR YANG ANDA HADAPI",
@@ -212,7 +212,7 @@ export const books = [
 			introHtml: "<p>Buku ini mengungkap sejarah jujur tentang bagaimana kaum muslimin <span class=\"font-bold\">memelopori kebangkitan teknologi</span> dunia dengan berpandu pada Al-Quran, serta bagaimana khazanah keilmuan ini berpindah ke Barat dan apa yang harus kita lakukan sekarang.</p>",
 			warning: "PERINGATAN: Buku ini akan mengubah pandangan Anda tentang sejarah teknologi!",
 			cta: "BUKU SEKARANG!",
-			mockup: "/img/ST/mockup-st.png"
+			mockup: "/img/ST/cover.jpg"
 		},
 		problems: {
 			title: "MASALAH YANG KITA HADAPI",
@@ -398,7 +398,7 @@ export const books = [
 			introHtml: "<p><span class=\"font-semibold\">IT Dengan Proyek Festival</span> membahas strategi pembelajaran berbasis proyek dengan <span class=\"font-bold\">persentase keberhasilan 85%</span> dibanding pembelajaran teori saja yang hanya 55%.</p>",
 			warning: "PERINGATAN: Buku ini akan mengubah metode pengajaran IT Anda!",
 			cta: "BUKTIKAN SEKARANG!",
-			mockup: "/img/IT-PF/mockup-it-pf.png"
+			mockup: "/img/IT-PF/cover.jpg"
 		},
 		problems: {
 			title: "MASALAH PEMBELAJARAN IT KONVENSIONAL",
@@ -490,7 +490,7 @@ export const books = [
 			introHtml: "<p><span class=\"font-semibold\">IT Berorientasi Produktif</span> membongkar kesalahan fatal pembelajaran IT konvensional dan mengungkap cara <span class=\"font-bold\">belajar sambil menghasilkan karya nyata</span> yang bisa menjadi portofolio!</p>",
 			warning: "PERINGATAN: Buku ini akan mengubah cara Anda belajar IT!",
 			cta: "BUKTIKAN SEKARANG!",
-			mockup: "/img/IT-BP/mockup-it-bp.png"
+			mockup: "/img/IT-BP/cover.jpg"
 		},
 		problems: {
 			title: "MASALAH BESAR DI DUNIA IT",
@@ -582,7 +582,7 @@ export const books = [
 			introHtml: "<p><span class=\"font-semibold\">IT Berorientasi Monetitatif</span> membongkar rahasia untuk menjadikan anak tidak hanya kreatif dan inovatif namun juga memiliki kemampuan untuk menghasilkan pendapatan dari skill teknologi <span class=\"font-bold\">dengan pendekatan Islami yang halal dan berkah</span>.</p>",
 			warning: "PERINGATAN: Buku ini akan mengubah cara pandang Anda tentang pembelajaran IT!",
 			cta: "BUKTIKAN SEKARANG!",
-			mockup: "/img/IT-BM/mockup-it-bm.png"
+			mockup: "/img/IT-BM/cover.jpg"
 		},
 		problems: {
 			title: "MASALAH BESAR DI DUNIA IT",
